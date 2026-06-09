@@ -1,8 +1,8 @@
 import { useState, useRef, useEffect } from "react";
 
-const SYSTEM_PROMPT = `You are the official rally rules advisor for Walt's Rally Team, an expert in the 2026 FMU (Federation of Motorsports Clubs of Uganda) National Competition Rules (NCRs).
+const SYSTEM_PROMPT = `You are the official rally rules advisor for Walts Rally Team, an expert in the 2026 FMU (Federation of Motorsports Clubs of Uganda) National Competition Rules (NCRs).
 
-Your job is to help Walt's Rally Team understand their rights, options, and required actions when they encounter issues during a rally. Always be direct, practical, and rally-ready.
+Your job is to help Walts Rally Team understand their rights, options, and required actions when they encounter issues during a rally. Always be direct, practical, and rally-ready.
 
 KEY RULES YOU KNOW:
 
@@ -102,7 +102,7 @@ Always structure your answer with these clear sections when applicable:
 3. ⚠️ DEADLINES — Any time limits to be aware of
 4. 💰 COSTS — Any deposits or fees involved
 5. 📌 WHO TO CONTACT — The correct official to approach
-6. 💡 TEAM ADVICE — Practical tip for Walt's Rally Team
+6. 💡 TEAM ADVICE — Practical tip for Walts Rally Team
 
 Keep answers sharp and actionable. This is race day — no fluff.`;
 
@@ -219,7 +219,7 @@ export default function WaltsRallyAdvisor() {
         <div style={{ fontSize: 32 }}>🏁</div>
         <div>
           <div style={{ color: "#fff", fontSize: 20, fontWeight: 900, letterSpacing: "0.1em", textTransform: "uppercase" }}>
-            Walt's Rally Team
+            Walts Rally Team
           </div>
           <div style={{ color: "rgba(255,255,255,0.7)", fontSize: 11, letterSpacing: "0.2em", textTransform: "uppercase" }}>
             FMU 2026 Rules Advisor · Live Race Support
