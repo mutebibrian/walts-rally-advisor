@@ -72,7 +72,7 @@ RIGHT OF REVIEW:
 APPEALS:
 - Appeal deposit: UGX 1,000,000
 - Stewards' decision is immediately binding on safety/entry irregularity matters
-- For other matters, penalty suspended pending appeal (but competitor shown in penalised position in provisional results)
+- For other matters, penalty suspended pending appeal
 
 FIRE EXTINGUISHER:
 - Defective/malfunctioning = reported to Stewards, penalty up to exclusion
@@ -107,14 +107,14 @@ Always structure your answer with these clear sections when applicable:
 Keep answers sharp and actionable. This is race day — no fluff.`;
 
 const QUICK_SCENARIOS = [
-  { label: "False Start Issued", prompt: "We just received a false start penalty on a stage. What are our options?" },
-  { label: "Rival Car Cheating", prompt: "We suspect a rival car is running illegal modifications. How do we protest?" },
-  { label: "Wrong Time on Card", prompt: "The marshal put the wrong time on our time card at a control. What do we do?" },
-  { label: "We Retired — Want to Restart", prompt: "Our car broke down and we had to retire. Can we restart and what penalties apply?" },
-  { label: "Route Deviation Penalty", prompt: "We were given a route deviation penalty but we think it was unfair. How do we challenge it?" },
-  { label: "Late to Admin Check", prompt: "We arrived late to administrative checks. What is the fine and what do we do?" },
-  { label: "Red Flag on Stage", prompt: "We saw a red flag mid-stage. What exactly must we do now?" },
-  { label: "Speeding Fine Received", prompt: "We got a speeding fine during reconnaissance. What are the exact amounts and can we appeal?" },
+  { icon: "🚦", label: "False Start", prompt: "We just received a false start penalty on a stage. What are our options?" },
+  { icon: "🔍", label: "Rival Cheating", prompt: "We suspect a rival car is running illegal modifications. How do we protest?" },
+  { icon: "🃏", label: "Wrong Time on Card", prompt: "The marshal put the wrong time on our time card at a control. What do we do?" },
+  { icon: "🔧", label: "Want to Restart", prompt: "Our car broke down and we had to retire. Can we restart and what penalties apply?" },
+  { icon: "🗺️", label: "Route Deviation", prompt: "We were given a route deviation penalty but we think it was unfair. How do we challenge it?" },
+  { icon: "⏰", label: "Late to Admin", prompt: "We arrived late to administrative checks. What is the fine and what do we do?" },
+  { icon: "🚩", label: "Red Flag on Stage", prompt: "We saw a red flag mid-stage. What exactly must we do now?" },
+  { icon: "💨", label: "Speeding Fine", prompt: "We got a speeding fine during reconnaissance. What are the exact amounts and can we appeal?" },
 ];
 
 export default function WaltsRallyAdvisor() {
@@ -132,13 +132,11 @@ export default function WaltsRallyAdvisor() {
   const sendMessage = async (text) => {
     const userText = text || input.trim();
     if (!userText || loading) return;
-
     setInput("");
     setShowIntro(false);
     const newMessages = [...messages, { role: "user", content: userText }];
     setMessages(newMessages);
     setLoading(true);
-
     try {
       const response = await fetch("https://api.groq.com/openai/v1/chat/completions", {
         method: "POST",
@@ -175,29 +173,38 @@ export default function WaltsRallyAdvisor() {
   const renderMessage = (msg, idx) => {
     const isUser = msg.role === "user";
     return (
-      <div key={idx} style={{ display: "flex", justifyContent: isUser ? "flex-end" : "flex-start", marginBottom: 16 }}>
+      <div key={idx} style={{
+        display: "flex", justifyContent: isUser ? "flex-end" : "flex-start",
+        marginBottom: 16, alignItems: "flex-end", gap: 8,
+      }}>
         {!isUser && (
           <div style={{
-            width: 36, height: 36, borderRadius: "50%", background: "#B8151A", flexShrink: 0,
-            display: "flex", alignItems: "center", justifyContent: "center", marginRight: 10, marginTop: 2,
-            fontSize: 16, fontWeight: 700, color: "#fff", fontFamily: "serif",
+            width: 34, height: 34, borderRadius: "50%",
+            background: "linear-gradient(135deg, #C0392B, #922B21)",
+            flexShrink: 0, display: "flex", alignItems: "center", justifyContent: "center",
+            fontSize: 14, fontWeight: 800, color: "#fff", boxShadow: "0 2px 8px rgba(192,57,43,0.35)",
           }}>W</div>
         )}
         <div style={{
-          maxWidth: "80%", padding: "12px 16px", borderRadius: isUser ? "18px 18px 4px 18px" : "18px 18px 18px 4px",
-          background: isUser ? "#B8151A" : "#1a1a1a",
-          color: isUser ? "#fff" : "#e8e8e8",
-          border: isUser ? "none" : "1px solid #2a2a2a",
-          fontSize: 14, lineHeight: 1.65, fontFamily: "'Courier New', monospace",
-          whiteSpace: "pre-wrap",
+          maxWidth: "78%", padding: "12px 16px",
+          borderRadius: isUser ? "18px 18px 4px 18px" : "18px 18px 18px 4px",
+          background: isUser
+            ? "linear-gradient(135deg, #C0392B, #922B21)"
+            : "#ffffff",
+          color: isUser ? "#fff" : "#1a1a1a",
+          boxShadow: isUser
+            ? "0 4px 15px rgba(192,57,43,0.3)"
+            : "0 2px 12px rgba(0,0,0,0.08)",
+          fontSize: 14, lineHeight: 1.7,
+          whiteSpace: "pre-wrap", border: isUser ? "none" : "1px solid #eee",
         }}>
           {msg.content}
         </div>
         {isUser && (
           <div style={{
-            width: 36, height: 36, borderRadius: "50%", background: "#333", flexShrink: 0,
-            display: "flex", alignItems: "center", justifyContent: "center", marginLeft: 10, marginTop: 2,
-            fontSize: 12, fontWeight: 700, color: "#aaa",
+            width: 34, height: 34, borderRadius: "50%", background: "#e8e8e8",
+            flexShrink: 0, display: "flex", alignItems: "center", justifyContent: "center",
+            fontSize: 11, fontWeight: 700, color: "#888",
           }}>YOU</div>
         )}
       </div>
@@ -206,58 +213,84 @@ export default function WaltsRallyAdvisor() {
 
   return (
     <div style={{
-      minHeight: "100vh", background: "#0d0d0d", fontFamily: "'Courier New', monospace",
-      display: "flex", flexDirection: "column",
+      height: "100dvh", background: "#f5f5f5", display: "flex", flexDirection: "column",
+      fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif", overflow: "hidden",
     }}>
+
       {/* Header */}
       <div style={{
-        background: "linear-gradient(135deg, #B8151A 0%, #7a0e11 100%)",
-        padding: "18px 24px", display: "flex", alignItems: "center", gap: 16,
-        borderBottom: "3px solid #ff2828", flexShrink: 0,
-        boxShadow: "0 4px 20px rgba(184,21,26,0.4)",
+        background: "linear-gradient(135deg, #C0392B 0%, #7B241C 100%)",
+        padding: "14px 18px", flexShrink: 0,
+        boxShadow: "0 4px 20px rgba(192,57,43,0.4)",
       }}>
-        <div style={{ fontSize: 32 }}>🏁</div>
-        <div>
-          <div style={{ color: "#fff", fontSize: 20, fontWeight: 900, letterSpacing: "0.1em", textTransform: "uppercase" }}>
-            Walts Rally Team
+        <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+          <div style={{
+            width: 44, height: 44, borderRadius: 12,
+            background: "rgba(255,255,255,0.15)", backdropFilter: "blur(10px)",
+            display: "flex", alignItems: "center", justifyContent: "center", fontSize: 22,
+            border: "1px solid rgba(255,255,255,0.2)",
+          }}>🏁</div>
+          <div style={{ flex: 1 }}>
+            <div style={{ color: "#fff", fontSize: 17, fontWeight: 800, letterSpacing: "0.02em" }}>
+              WALTS RALLY TEAM
+            </div>
+            <div style={{ color: "rgba(255,255,255,0.75)", fontSize: 11, marginTop: 1 }}>
+              FMU 2026 Rules Advisor
+            </div>
           </div>
-          <div style={{ color: "rgba(255,255,255,0.7)", fontSize: 11, letterSpacing: "0.2em", textTransform: "uppercase" }}>
-            FMU 2026 Rules Advisor · Live Race Support
+          <div style={{
+            background: "rgba(255,255,255,0.15)", borderRadius: 20,
+            padding: "4px 10px", display: "flex", alignItems: "center", gap: 5,
+          }}>
+            <div style={{
+              width: 7, height: 7, borderRadius: "50%", background: "#4ade80",
+              boxShadow: "0 0 6px #4ade80",
+            }} />
+            <span style={{ color: "#fff", fontSize: 10, fontWeight: 600 }}>LIVE</span>
           </div>
-        </div>
-        <div style={{ marginLeft: "auto", textAlign: "right" }}>
-          <div style={{ color: "#ffcc00", fontSize: 10, letterSpacing: "0.15em", textTransform: "uppercase", fontWeight: 700 }}>
-            ● ONLINE
-          </div>
-          <div style={{ color: "rgba(255,255,255,0.5)", fontSize: 10, marginTop: 2 }}>FMU NCR 2026</div>
         </div>
       </div>
 
-      {/* Messages Area */}
-      <div style={{ flex: 1, overflowY: "auto", padding: "20px 20px 0", minHeight: 0 }}>
+      {/* Messages */}
+      <div style={{ flex: 1, overflowY: "auto", padding: "16px 16px 0" }}>
+
         {showIntro && (
-          <div style={{ textAlign: "center", padding: "30px 0 20px" }}>
-            <div style={{ fontSize: 48, marginBottom: 12 }}>🏎️</div>
-            <div style={{ color: "#B8151A", fontSize: 22, fontWeight: 900, letterSpacing: "0.08em", marginBottom: 6 }}>
-              RACE DAY RULES ADVISOR
+          <div style={{ paddingBottom: 8 }}>
+            {/* Hero Card */}
+            <div style={{
+              background: "linear-gradient(135deg, #C0392B 0%, #7B241C 100%)",
+              borderRadius: 20, padding: "24px 20px", marginBottom: 16, textAlign: "center",
+              boxShadow: "0 8px 30px rgba(192,57,43,0.3)",
+            }}>
+              <div style={{ fontSize: 44, marginBottom: 8 }}>🏎️</div>
+              <div style={{ color: "#fff", fontSize: 20, fontWeight: 800, marginBottom: 6 }}>
+                Race Day Advisor
+              </div>
+              <div style={{ color: "rgba(255,255,255,0.8)", fontSize: 13, lineHeight: 1.6 }}>
+                Instant FMU rules guidance for any situation on or off the stage
+              </div>
             </div>
-            <div style={{ color: "#666", fontSize: 13, maxWidth: 400, margin: "0 auto 28px", lineHeight: 1.6 }}>
-              Describe your issue or pick a common scenario. Get instant guidance based on the 2026 FMU National Competition Rules.
-            </div>
-            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8, maxWidth: 560, margin: "0 auto" }}>
-              {QUICK_SCENARIOS.map((s, i) => (
-                <button key={i} onClick={() => sendMessage(s.prompt)} style={{
-                  background: "#1a1a1a", border: "1px solid #333", color: "#ccc",
-                  padding: "10px 12px", borderRadius: 8, cursor: "pointer", fontSize: 12,
-                  textAlign: "left", transition: "all 0.15s", fontFamily: "inherit",
-                  lineHeight: 1.4,
-                }}
-                  onMouseEnter={e => { e.target.style.borderColor = "#B8151A"; e.target.style.color = "#fff"; e.target.style.background = "#1f0809"; }}
-                  onMouseLeave={e => { e.target.style.borderColor = "#333"; e.target.style.color = "#ccc"; e.target.style.background = "#1a1a1a"; }}
-                >
-                  {s.label}
-                </button>
-              ))}
+
+            {/* Quick Scenarios */}
+            <div style={{ marginBottom: 8 }}>
+              <div style={{ fontSize: 12, fontWeight: 700, color: "#888", letterSpacing: "0.08em", marginBottom: 10, textTransform: "uppercase" }}>
+                Common Situations
+              </div>
+              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8 }}>
+                {QUICK_SCENARIOS.map((s, i) => (
+                  <button key={i} onClick={() => sendMessage(s.prompt)} style={{
+                    background: "#fff", border: "1.5px solid #eee", borderRadius: 14,
+                    padding: "12px 10px", cursor: "pointer", textAlign: "left",
+                    transition: "all 0.15s", boxShadow: "0 2px 8px rgba(0,0,0,0.04)",
+                  }}
+                    onMouseEnter={e => { e.currentTarget.style.borderColor = "#C0392B"; e.currentTarget.style.boxShadow = "0 4px 15px rgba(192,57,43,0.15)"; }}
+                    onMouseLeave={e => { e.currentTarget.style.borderColor = "#eee"; e.currentTarget.style.boxShadow = "0 2px 8px rgba(0,0,0,0.04)"; }}
+                  >
+                    <div style={{ fontSize: 20, marginBottom: 4 }}>{s.icon}</div>
+                    <div style={{ fontSize: 12, fontWeight: 700, color: "#1a1a1a", lineHeight: 1.3 }}>{s.label}</div>
+                  </button>
+                ))}
+              </div>
             </div>
           </div>
         )}
@@ -265,94 +298,100 @@ export default function WaltsRallyAdvisor() {
         {messages.map((msg, idx) => renderMessage(msg, idx))}
 
         {loading && (
-          <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 16 }}>
+          <div style={{ display: "flex", alignItems: "flex-end", gap: 8, marginBottom: 16 }}>
             <div style={{
-              width: 36, height: 36, borderRadius: "50%", background: "#B8151A",
-              display: "flex", alignItems: "center", justifyContent: "center", fontSize: 16, fontWeight: 700, color: "#fff", fontFamily: "serif",
+              width: 34, height: 34, borderRadius: "50%",
+              background: "linear-gradient(135deg, #C0392B, #922B21)",
+              display: "flex", alignItems: "center", justifyContent: "center",
+              fontSize: 14, fontWeight: 800, color: "#fff",
             }}>W</div>
             <div style={{
-              padding: "12px 18px", background: "#1a1a1a", border: "1px solid #2a2a2a",
-              borderRadius: "18px 18px 18px 4px", display: "flex", alignItems: "center", gap: 6,
+              background: "#fff", border: "1px solid #eee", borderRadius: "18px 18px 18px 4px",
+              padding: "14px 18px", boxShadow: "0 2px 12px rgba(0,0,0,0.08)",
+              display: "flex", gap: 5, alignItems: "center",
             }}>
               {[0, 1, 2].map(i => (
                 <div key={i} style={{
-                  width: 7, height: 7, borderRadius: "50%", background: "#B8151A",
-                  animation: "pulse 1.2s ease-in-out infinite",
-                  animationDelay: `${i * 0.2}s`,
+                  width: 8, height: 8, borderRadius: "50%", background: "#C0392B",
+                  animation: "bounce 1.2s ease-in-out infinite",
+                  animationDelay: `${i * 0.18}s`,
                 }} />
               ))}
             </div>
           </div>
         )}
-        <div ref={bottomRef} style={{ height: 20 }} />
+        <div ref={bottomRef} style={{ height: 16 }} />
       </div>
 
-      {/* Input Area */}
+      {/* Input Bar */}
       <div style={{
-        padding: "16px 20px 20px", background: "#111", borderTop: "1px solid #222", flexShrink: 0,
+        background: "#fff", borderTop: "1px solid #eee", padding: "10px 12px 14px",
+        flexShrink: 0, boxShadow: "0 -4px 20px rgba(0,0,0,0.06)",
       }}>
-        {messages.length > 0 && !showIntro && (
-          <div style={{ display: "flex", gap: 6, marginBottom: 10, flexWrap: "wrap" }}>
-            {QUICK_SCENARIOS.slice(0, 4).map((s, i) => (
+        {/* Quick chips when chatting */}
+        {!showIntro && (
+          <div style={{ display: "flex", gap: 6, marginBottom: 8, overflowX: "auto", paddingBottom: 2 }}>
+            {QUICK_SCENARIOS.slice(0, 5).map((s, i) => (
               <button key={i} onClick={() => sendMessage(s.prompt)} style={{
-                background: "transparent", border: "1px solid #333", color: "#888",
-                padding: "4px 10px", borderRadius: 12, cursor: "pointer", fontSize: 10,
-                fontFamily: "inherit", transition: "all 0.15s", letterSpacing: "0.05em",
+                background: "#f8f8f8", border: "1.5px solid #eee", color: "#555",
+                padding: "5px 11px", borderRadius: 20, cursor: "pointer", fontSize: 11,
+                fontWeight: 600, whiteSpace: "nowrap", flexShrink: 0, transition: "all 0.15s",
               }}
-                onMouseEnter={e => { e.target.style.borderColor = "#B8151A"; e.target.style.color = "#fff"; }}
-                onMouseLeave={e => { e.target.style.borderColor = "#333"; e.target.style.color = "#888"; }}
+                onMouseEnter={e => { e.currentTarget.style.borderColor = "#C0392B"; e.currentTarget.style.color = "#C0392B"; }}
+                onMouseLeave={e => { e.currentTarget.style.borderColor = "#eee"; e.currentTarget.style.color = "#555"; }}
               >
-                {s.label}
+                {s.icon} {s.label}
               </button>
             ))}
           </div>
         )}
-        <div style={{ display: "flex", gap: 10 }}>
+
+        <div style={{ display: "flex", gap: 8, alignItems: "flex-end" }}>
           <textarea
             ref={inputRef}
             value={input}
             onChange={e => setInput(e.target.value)}
             onKeyDown={handleKey}
-            placeholder="Describe your issue, penalty, or situation..."
+            placeholder="Describe your situation..."
             disabled={loading}
-            rows={2}
+            rows={1}
             style={{
-              flex: 1, background: "#1a1a1a", border: "1px solid #333", color: "#e8e8e8",
-              borderRadius: 10, padding: "12px 14px", fontSize: 13, fontFamily: "inherit",
-              resize: "none", outline: "none", lineHeight: 1.5,
-              transition: "border-color 0.15s",
+              flex: 1, background: "#f5f5f5", border: "1.5px solid #e8e8e8",
+              color: "#1a1a1a", borderRadius: 22, padding: "11px 16px",
+              fontSize: 14, resize: "none", outline: "none", lineHeight: 1.5,
+              transition: "border-color 0.15s", maxHeight: 100, overflowY: "auto",
+              fontFamily: "inherit",
             }}
-            onFocus={e => e.target.style.borderColor = "#B8151A"}
-            onBlur={e => e.target.style.borderColor = "#333"}
+            onFocus={e => e.target.style.borderColor = "#C0392B"}
+            onBlur={e => e.target.style.borderColor = "#e8e8e8"}
           />
           <button
             onClick={() => sendMessage()}
             disabled={!input.trim() || loading}
             style={{
-              background: input.trim() && !loading ? "#B8151A" : "#2a2a2a",
-              border: "none", color: input.trim() && !loading ? "#fff" : "#555",
-              borderRadius: 10, padding: "0 20px", cursor: input.trim() && !loading ? "pointer" : "not-allowed",
-              fontSize: 18, transition: "all 0.15s", flexShrink: 0,
+              width: 44, height: 44, borderRadius: "50%", flexShrink: 0,
+              background: input.trim() && !loading
+                ? "linear-gradient(135deg, #C0392B, #922B21)"
+                : "#e8e8e8",
+              border: "none", cursor: input.trim() && !loading ? "pointer" : "not-allowed",
+              display: "flex", alignItems: "center", justifyContent: "center",
+              fontSize: 16, transition: "all 0.2s",
+              boxShadow: input.trim() && !loading ? "0 4px 15px rgba(192,57,43,0.4)" : "none",
+              color: input.trim() && !loading ? "#fff" : "#aaa",
             }}
-          >
-            ▶
-          </button>
-        </div>
-        <div style={{ color: "#444", fontSize: 10, marginTop: 8, textAlign: "center", letterSpacing: "0.1em" }}>
-          ENTER TO SEND · POWERED BY FMU NCR 2026
+          >▶</button>
         </div>
       </div>
 
       <style>{`
-        @keyframes pulse {
-          0%, 80%, 100% { opacity: 0.3; transform: scale(0.8); }
-          40% { opacity: 1; transform: scale(1); }
+        @keyframes bounce {
+          0%, 80%, 100% { transform: translateY(0); opacity: 0.4; }
+          40% { transform: translateY(-6px); opacity: 1; }
         }
-        ::-webkit-scrollbar { width: 4px; }
-        ::-webkit-scrollbar-track { background: #111; }
-        ::-webkit-scrollbar-thumb { background: #333; border-radius: 2px; }
-        ::-webkit-scrollbar-thumb:hover { background: #B8151A; }
-        * { box-sizing: border-box; }
+        ::-webkit-scrollbar { width: 3px; }
+        ::-webkit-scrollbar-thumb { background: #ddd; border-radius: 2px; }
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        textarea { scrollbar-width: none; }
       `}</style>
     </div>
   );
