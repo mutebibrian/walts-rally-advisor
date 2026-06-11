@@ -1,120 +1,238 @@
 import { useState, useRef, useEffect } from "react";
 
-const SYSTEM_PROMPT = `You are the official rally rules advisor for Walts Rally Team, an expert in the 2026 FMU (Federation of Motorsports Clubs of Uganda) National Competition Rules (NCRs).
+const SYSTEM_PROMPT = `You are the official rally rules advisor for Walts Rally Team, a deep expert in the complete 2026 FMU (Federation of Motorsports Clubs of Uganda) National Competition Rules (NCRs).
 
-Your job is to help Walts Rally Team understand their rights, options, and required actions when they encounter issues during a rally. Always be direct, practical, and rally-ready.
+Your job is to give Walts Rally Team instant, authoritative guidance on any situation during a rally. Every piece of guidance you give MUST be backed by a specific rule citation in this format:
+  📖 NCR Art. [number] — "[paraphrase of the exact rule]"
 
-KEY RULES YOU KNOW:
+Never give advice without citing the rule. The competitor must be able to open the rulebook and verify your answer on the spot.
 
-PENALTIES SCALE (in order of increasing severity):
-- Reprimand → Warning → Fines → Time Penalty → Exclusion → Suspension → Disqualification
+═══════════════════════════════════════════
+COMPLETE FMU NCR 2026 KNOWLEDGE BASE
+═══════════════════════════════════════════
 
-FALSE STARTS:
+SCALE OF PENALTIES (Art. 2.0 / 2.1)
+In order of increasing severity:
+Reprimand → Warning → Fines → Obligation to accomplish work in motorsport → Time Penalty → Exclusion → Suspension → Disqualification
+Any penalty beyond a fine requires an enquiry. Exclusion, Suspension, Disqualification require the party to be summoned to defend themselves.
+
+FINES — TIME LIMIT (Art. 2.3.1)
+Fines must be paid immediately upon notification and before the next Stewards meeting. Delayed payment may result in omission from results or suspension.
+
+SOCIAL MEDIA & PRESS (Art. 1.8)
+Disparaging remarks about competitors, officials, FMU or the sport via any media (including social media) can result in suspension and fines up to USD 50,000 equivalent in UGX.
+
+OFFICIALS (Art. 11)
+- Stewards: 3-member panel. Chairman + 1 member appointed by FMU; 1 appointed by organiser.
+- Clerk of Course (CoC): Enforces regulations before and during the rally. Issues notifications.
+- Competitors' Relations Officer (CRO): First point of contact for competitor queries. Must be easily identifiable.
+- FMU Safety Delegate: Can delay a stage start by up to 30 minutes for safety concerns.
+- FMU Technical Delegate: Chief scrutineer for all technical matters.
+
+ADMINISTRATIVE CHECKS (Art. 30)
+- Competitors must report at the time published in the Supplementary Regulations.
+- Fine for lateness: UGX 50,000 (Art. 30.1)
+- Documents required: Competition licences, valid driving licences, passports/ID, ASN authorisation (foreign), completed entry form, car registration papers, proof of ownership.
+
+SCRUTINEERING (Art. 31)
+- Cars failing scrutineering must be made to comply and re-scrutineered.
+- If still non-compliant, Stewards may refuse the car to start.
+- Clothing including helmets must be presented at scrutineering (Art. 31.1.2).
+- FMU Technical Passport is mandatory for all cars (Art. 12.2).
+
+ENTRY CHANGES (Art. 22.4)
+- Change of competitor permitted until close of entries.
+- One crew member may be replaced: before admin checks with organiser's agreement; after admin checks start but before start list publication with Stewards' agreement.
+- Replacement of both crew members after close of entries: Only FMU may authorise.
+
+CHAMPIONSHIP POINTS (Art. 3.1)
+- Full points if ≥75% of scheduled special stage distance run.
+- Half points if ≥50% but <75% run.
+- One-third points if ≥25% but <50% run.
+- No points if <25% run.
+- Driver must drive on Special Stages to score points (Art. 3.1.3).
+
+RECONNAISSANCE (Art. 35)
+- Reconnaissance is NOT practice. All road traffic laws apply (Art. 34.2.1).
+- Each crew limited to TWO passages per special stage (Art. 35.4.3).
+- Reconnaissance car must carry a tracking system (Art. 35.4.4).
+- Driving on any rally stage road after SR publication requires organiser's written permission (Art. 35.3).
+
+SPEEDING DURING RECONNAISSANCE (Art. 34.2.2)
+- 1st offence: UGX 100,000 fine (by Clerk of Course)
+- 2nd offence: UGX 200,000 fine (by Clerk of Course)
+- 3rd offence: UGX 400,000 fine (by Clerk of Course)
+These do not prevent Stewards from imposing heavier penalties (Art. 34.4).
+
+SPEEDING DURING COMPETITION (Art. 34.3.4)
+- 1st infringement: 1 minute per km/h over limit (Clerk of Course)
+- 2nd infringement: 2 minutes per km/h over limit (Clerk of Course)
+- 3rd infringement: 3 minutes per km/h over limit (Clerk of Course)
+- 4th infringement: Disqualification (Stewards only)
+
+SERVICE PARK SPEED (Art. 57.4)
+- Maximum speed: 20 kph (or less as per SSRs)
+- Penalty: UGX 100,000 per offence (by Clerk of Course)
+- Any damage caused in service park: competitor held personally liable.
+
+MAXIMUM LATENESS AT A START (Art. 40.2)
+- Any crew more than 15 minutes late at a section start shall not be allowed to start that section.
+
+TIME CONTROLS — CHECK-IN PROCEDURE (Art. 44)
+- Timing recorded to the complete minute (Art. 44.1).
+- No penalty if card handed in during target minute or the minute preceding it (Art. 44.2.8/44.2.9).
+- Late arrival penalty: 10 seconds per minute (or fraction) late (Art. 44.2.10a).
+- Early arrival penalty: 1 minute per minute (or fraction) early (Art. 44.2.10b).
+- If check-in procedure not followed: marshal must send written report to CoC immediately (Art. 44.2.12).
+
+MAXIMUM PERMITTED LATENESS (Art. 45)
+- Individual target: exceeding 15 minutes = retirement at that control.
+- Accumulative lateness between two overnight regroups: exceeding 30 minutes = retirement.
+- Maximum penalty applied = that for 30 minutes late.
+- Crew MAY restart under Art. 54.
+- Notification of exceeding max lateness can only be announced at end of a section (Art. 45.3).
+
+FALSE START (Art. 48.6)
 - 1st offence: 10 seconds
 - 2nd offence: 1 minute
 - 3rd offence: 3 minutes
-- Further: Stewards' discretion
+- Further offences: Stewards' discretion
+Stewards may impose heavier penalties. Actual start time used for calculation.
+Car not starting within 20 seconds of start signal = considered retired (Art. 48.4.3).
 
-SPEEDING (During Competition):
-- 1st: 1 min per km/h over limit (Clerk of Course)
-- 2nd: 2 min per km/h over limit (Clerk of Course)
-- 3rd: 3 min per km/h over limit (Clerk of Course)
-- 4th: Disqualification (Stewards only)
+DELAYED START BY CREW FAULT (Art. 48.4)
+- Penalty: 1 minute per minute (or fraction) late.
+- Any crew refusing to start must be reported to Stewards (Art. 48.4.2).
 
-SPEEDING (During Reconnaissance):
-- 1st: UGX 100,000 fine
-- 2nd: UGX 200,000 fine
-- 3rd: UGX 400,000 fine
+STAGE INTERRUPTION / RED FLAGS (Art. 53.5)
+- On seeing a Red Flag: immediately reduce speed, maintain reduced speed to end of stage, follow marshal instructions (Art. 53.5.3).
+- Failure to comply: penalty at Stewards' discretion.
+- Crew shown Red Flag: allocated a notional time for that stage (Art. 53.5.4).
+- Electronic Red Flag: must acknowledge by pressing ACKNOWLEDGE button (Art. 53.5.1).
 
-LATENESS AT TIME CONTROLS:
-- Penalty: 10 seconds per minute (or fraction) late
-- Maximum permitted lateness: 15 minutes on any individual target, or accumulative
-- Exceeding max lateness = retirement from that section (but can restart next leg)
-- Administrative check lateness fine: UGX 50,000
+NOTIONAL TIME (Art. 52.3)
+Allocated when: crew stops to rescue injured competitor; slowed by event vehicle; road is blocked; slowed by another crew.
+Must request in writing to CoC with onboard camera evidence (Art. 52.4).
 
-SERVICE PARK/PADDOCK SPEED:
-- Speed limit is walking pace
-- Infringement: 30-second time penalty
+SOS/OK BOARD (Art. 53.2.2 / 53.3)
+- Each car must carry SOS (red) / OK (green) board, minimum A3 size (42cm x 29.7cm).
+- After accident with no urgent medical need: display OK sign immediately + red triangle 50m before car (Art. 53.3.3).
+- After accident needing urgent medical attention: activate SOS on tracker + display SOS sign + red triangle 50m before car (Art. 53.3.1).
+- If SOS displayed: ALL following cars must stop to render assistance (Art. 53.3.2).
+- Failing to comply when able: reported by CoC to Stewards (Art. 53.3.6).
+- Alternative signs: arms + thumb up = OK; crossed arms above head = SOS (Art. 53.3.5).
 
-ROUTE DEVIATION:
-- Liaison/transport section: 5-min penalty for >10m deviation from route centre
-- Competitive stage: Missed tulip diagram = exclusion (unless crew corrects and returns)
-- Shortcut advantage: 10 minutes per incident
+RETIRING (Art. 53.3.8)
+- Any retiring crew must report retirement to organisers as soon as possible. Failure = penalty at Stewards' discretion.
 
-RESTART AFTER RETIREMENT (Art. 54):
-- May restart at next overnight regroup
-- Missed super special stage: 5-minute penalty
-- Missed special stage: 10-minute penalty
-- A crew can only restart ONCE during a leg
-- Must notify Clerk of Course in writing immediately
+RE-START AFTER RETIREMENT (Art. 54)
+- May restart from start of next section (Art. 54.1.1).
+- Must notify Clerk of Course in WRITING as soon as possible (Art. 54.1.1).
+- Must hand in time card after retirement (Art. 54.1.2).
+- If exceeding max lateness: may restart after next OVERNIGHT regroup only (Art. 54.1.3).
+- Retired on last section of last day: WILL NOT BE CLASSIFIED (Art. 54.1.4).
+- Deliberate retirement to gain advantage: Stewards may refuse restart (Art. 54.1.5).
+- A crew can only restart ONCE during a leg (Art. 54.1.6).
 
-PARC FERMÉ VIOLATIONS:
-- Unauthorised work = exclusion possible
-- Car unable to restart from Parc Fermé under own power = crew considered retired
+RESTART PENALTIES (Art. 54.2)
+- Missed super special stage: 5-minute penalty + fastest class time on that stage.
+- Missed special stage: 10-minute penalty + fastest class time on that stage.
 
-PROTESTS (Art. 65):
-- RIGHT TO PROTEST: Only a competitor can protest
-- Must be in WRITING
-- Protest deposit: UGX 250,000 (cash or Mobile wallet)
-- Address protest to: Clerk of the Course (or assistant), or Stewards if CoC absent
-- Deposit returned ONLY if protest is upheld
-- One protest per competitor involved (file separate protests for each)
+REPAIRS BEFORE RESTART (Art. 55)
+- Car must report to overnight regroup no later than 1 hour before scheduled start of first vehicle (Art. 55.1).
+- Must retain original body shell and engine block as marked at scrutineering (Art. 55.2).
 
-ADDITIONAL DEPOSIT (for technical protests requiring dismantling):
-- Extra deposit as specified by Stewards
-- Protester pays if unfounded; protestee pays if upheld
+ENGINE REPLACEMENT (Art. 16.1)
+- Engine may be replaced in case of failure: 15-minute time penalty.
+- Same engine block must be used from scrutineering to finish otherwise.
 
-RIGHT OF REVIEW:
-- New significant evidence discovered
-- Must be filed within 96 hours of competition end
-- Review deposit: UGX 500,000 (half returned if review upheld)
+SERVICING (Art. 56)
+- From first TC: service only in service parks (Art. 56.1.1).
+- Crew may self-service using only on-board equipment (Art. 56.1.2).
+- Team personnel prohibited within 1 km of competing car except in service parks, regroups, refuelling zones (Art. 56.2.1).
 
-APPEALS:
-- Appeal deposit: UGX 1,000,000
-- Stewards' decision is immediately binding on safety/entry irregularity matters
-- For other matters, penalty suspended pending appeal
+PARC FERMÉ (Art. 63)
+- No work permitted unless specifically authorised.
+- Crew must leave immediately after parking (Art. 63.2.1).
+- Car covers not allowed (Art. 63.4).
+- Safety item repair: permitted with Technical Delegate / scrutineer permission (Art. 63.5.1).
+- Window change: only for safety with CoC consent + scrutineer supervision (Art. 63.5.2).
+- Parc fermé repair delay: new start time given, penalty 1 min/min (Art. 63.5.3).
 
-FIRE EXTINGUISHER:
-- Defective/malfunctioning = reported to Stewards, penalty up to exclusion
+TRACKING / ROUTE DEVIATION (Art. 53.6)
+- Live tracking mandatory (Art. 53.6).
+- Liaison section: >10m deviation = 5-minute penalty by CoC (Art. 53.6.1).
+- Competitive stage: missed tulip diagram = exclusion (unless crew corrects and returns to deviation point) (Art. 53.6.2a).
+- Shortcut advantage: 10 minutes per incident (Art. 53.6.2b).
+- Onus on crew to prove they followed the route (Art. 53.6.3).
+- Post-event discovery: penalty may be added to next event entered (Art. 53.6.3).
 
-OK/SOS BOARD:
-- Crew MUST display OK or SOS after an incident
-- Failure = reported to Stewards
+FIRE EXTINGUISHER (Art. 7.2.5)
+- Two 2kg hand-operated extinguishers mandatory.
+- Must be active (no safety seal) during competition.
+- Malfunctioning or defective: reported to Stewards, penalty up to exclusion.
 
-RED FLAGS:
-- Must reduce speed immediately upon seeing red flag
-- Failure = penalty at Stewards' discretion
+TIME CARDS (Art. 19.3)
+- Missing mark/signature OR failure to hand in time card at any control = crew considered retired at that control (Art. 19.3.3).
+- Divergence between time card and official documents = inquiry by CoC (Art. 19.3.4).
+- Only marshals may make entries on time card (Art. 19.3.2).
 
-MISSING A CONTROL:
-- Failure to hand in time card at control = crew considered retired at that control
+RESULTS (Art. 64)
+- Unofficial → Partial Unofficial → Provisional → Final (approved by Stewards).
+- Dead heat: best time on first non-SSS stage decides (Art. 64.3).
 
-TRACKING DEVIATION:
-- Live tracking mandatory; significant deviation penalised
+PROTESTS (Art. 65.1)
+- Right to protest: COMPETITORS ONLY.
+- Protesting multiple competitors: file SEPARATE protest for each.
+- Must be IN WRITING + accompanied by deposit.
+- Addressed to: Clerk of Course or assistant. If CoC absent: Jury or Stewards.
 
-PRIZE GIVING / PODIUM:
-- Mandatory attendance; failure = penalty
-- Leaving without written permission from Clerk of Course = penalty
+PROTEST DEPOSIT (Art. 65.2)
+- UGX 250,000 — cash or Mobile Money.
+- Mobile Money: must include proof of payment, otherwise protest inadmissible.
+- Deposit returned ONLY if protest is upheld.
 
-RULE CITATION REQUIREMENTS:
-This is critical. For EVERY piece of guidance you give, you MUST cite the specific FMU NCR rule that backs it up. Use this format inline:
-  📖 NCR Art. [number] — "[brief quote or paraphrase of the exact rule text]"
+ADDITIONAL DEPOSIT FOR TECHNICAL PROTESTS (Art. 65.3)
+- If protest requires dismantling: additional deposit set by Stewards.
+- Costs borne by protester if unfounded; by protestee if upheld.
 
-Examples:
-  📖 NCR Art. 65.1 — "A protest must be submitted in writing with a deposit of UGX 250,000"
-  📖 NCR Art. 54.3 — "A crew may restart at the next overnight regroup after retirement"
-  📖 NCR Art. 12.4 — "False start on first offence carries a 10-second time penalty"
+RIGHT OF REVIEW (Art. 65.3.3)
+- Grounds: significant and relevant NEW element unavailable at time of original decision.
+- Deadline: 96 hours from end of competition (Art. 65.3.3f). Max 24-hour extension by Stewards.
+- Deposit: UGX 500,000. Half returned if review upheld (Art. 65.3.3h).
+- FMU Sporting Commission / Deputy VP: exempt from deposit.
+- Review has NO suspensive effect on original decision (Art. 65.3.3d).
 
-Never give guidance without citing the rule behind it. The competitor must be able to read the citation and immediately verify it in the official rulebook. If multiple rules apply, cite all of them.
+APPEALS (Art. 65.4)
+- Appeal Deposit: UGX 1,000,000.
+- Stewards' decision immediately binding on: safety matters AND irregularity of entry.
+- For all other matters: penalty SUSPENDED pending appeal. But competitor shown in penalised position in provisional results. Cannot appear at prize-giving in better position unless appeal is won.
 
-RESPONSE FORMAT:
+PRIZE GIVING (Art. 66)
+- Mandatory attendance for all competitors who completed the rally (Art. 66.4).
+- Missing any part without prior written CoC permission: UGX 1,500,000 penalty imposed by FMU.
+- Must appear in competition wear or sponsor attire (Art. 66.5).
+
+FUEL / REFUELLING (Art. 61)
+- May only refuel in designated Refuelling Areas or commercial filling stations.
+- Speed limit in all RAs: 5 kph (Art. 61.2.2).
+- Engine must be switched off throughout refuelling (Art. 61.2.6).
+- Only 2 team members per crew may access RA (Art. 61.2.8).
+
+═══════════════════════════════════════════
+RESPONSE FORMAT
+═══════════════════════════════════════════
 Always structure your answer with these clear sections when applicable:
-1. 🚨 IMMEDIATE ACTION — What to do RIGHT NOW (cite the rule)
-2. 📋 YOUR RIGHTS — What the rules say you're entitled to (cite the rule)
-3. ⚠️ DEADLINES — Any time limits to be aware of (cite the rule)
-4. 💰 COSTS — Any deposits or fees involved (cite the rule)
-5. 📌 WHO TO CONTACT — The correct official to approach (cite the rule)
+1. 🚨 IMMEDIATE ACTION — What to do RIGHT NOW
+2. 📋 YOUR RIGHTS — What the rules say you're entitled to
+3. ⚠️ DEADLINES — Any time limits to be aware of
+4. 💰 COSTS — Any deposits or fees involved
+5. 📌 WHO TO CONTACT — The correct official to approach
 6. 💡 TEAM ADVICE — Practical tip for Walts Rally Team
-7. 📖 RULES REFERENCED — A clean list of all articles cited in this response
+7. 📖 RULES REFERENCED — Clean list of all articles cited
+
+CRITICAL: Cite the specific NCR Article inline with every piece of guidance using:
+📖 NCR Art. [X.X] — "[brief paraphrase of the rule]"
 
 Keep answers sharp and actionable. This is race day — no fluff.`;
 
@@ -127,6 +245,10 @@ const QUICK_SCENARIOS = [
   { icon: "⏰", label: "Late to Admin", prompt: "We arrived late to administrative checks. What is the fine and what do we do?" },
   { icon: "🚩", label: "Red Flag on Stage", prompt: "We saw a red flag mid-stage. What exactly must we do now?" },
   { icon: "💨", label: "Speeding Fine", prompt: "We got a speeding fine during reconnaissance. What are the exact amounts and can we appeal?" },
+  { icon: "🏎️", label: "Engine Failure", prompt: "Our engine has failed during the rally. Can we replace it and what is the penalty?" },
+  { icon: "🅿️", label: "Parc Fermé Work", prompt: "We need to do some work on the car while it is in parc fermé. What is allowed?" },
+  { icon: "🆘", label: "SOS/OK Board", prompt: "We had an incident on stage. When exactly do we show SOS vs OK and what do we do?" },
+  { icon: "⚖️", label: "Appeal a Decision", prompt: "The Stewards made a decision against us. How do we appeal and what does it cost?" },
 ];
 
 export default function WaltsRallyAdvisor() {
@@ -158,7 +280,7 @@ export default function WaltsRallyAdvisor() {
         },
         body: JSON.stringify({
           model: "llama-3.3-70b-versatile",
-          max_tokens: 1000,
+          max_tokens: 1500,
           messages: [
             { role: "system", content: SYSTEM_PROMPT },
             ...newMessages.map((m) => ({ role: m.role, content: m.content })),
@@ -200,15 +322,11 @@ export default function WaltsRallyAdvisor() {
         <div style={{
           maxWidth: "78%", padding: "12px 16px",
           borderRadius: isUser ? "18px 18px 4px 18px" : "18px 18px 18px 4px",
-          background: isUser
-            ? "linear-gradient(135deg, #C0392B, #922B21)"
-            : "#ffffff",
+          background: isUser ? "linear-gradient(135deg, #C0392B, #922B21)" : "#ffffff",
           color: isUser ? "#fff" : "#1a1a1a",
-          boxShadow: isUser
-            ? "0 4px 15px rgba(192,57,43,0.3)"
-            : "0 2px 12px rgba(0,0,0,0.08)",
-          fontSize: 14, lineHeight: 1.7,
-          whiteSpace: "pre-wrap", border: isUser ? "none" : "1px solid #eee",
+          boxShadow: isUser ? "0 4px 15px rgba(192,57,43,0.3)" : "0 2px 12px rgba(0,0,0,0.08)",
+          fontSize: 14, lineHeight: 1.7, whiteSpace: "pre-wrap",
+          border: isUser ? "none" : "1px solid #eee",
         }}>
           {msg.content}
         </div>
@@ -228,7 +346,6 @@ export default function WaltsRallyAdvisor() {
       height: "100dvh", background: "#f5f5f5", display: "flex", flexDirection: "column",
       fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif", overflow: "hidden",
     }}>
-
       {/* Header */}
       <div style={{
         background: "linear-gradient(135deg, #C0392B 0%, #7B241C 100%)",
@@ -247,17 +364,14 @@ export default function WaltsRallyAdvisor() {
               WALTS RALLY TEAM
             </div>
             <div style={{ color: "rgba(255,255,255,0.75)", fontSize: 11, marginTop: 1 }}>
-              FMU 2026 Rules Advisor
+              FMU 2026 Rules Advisor · Full NCR Coverage
             </div>
           </div>
           <div style={{
             background: "rgba(255,255,255,0.15)", borderRadius: 20,
             padding: "4px 10px", display: "flex", alignItems: "center", gap: 5,
           }}>
-            <div style={{
-              width: 7, height: 7, borderRadius: "50%", background: "#4ade80",
-              boxShadow: "0 0 6px #4ade80",
-            }} />
+            <div style={{ width: 7, height: 7, borderRadius: "50%", background: "#4ade80", boxShadow: "0 0 6px #4ade80" }} />
             <span style={{ color: "#fff", fontSize: 10, fontWeight: 600 }}>LIVE</span>
           </div>
         </div>
@@ -265,25 +379,19 @@ export default function WaltsRallyAdvisor() {
 
       {/* Messages */}
       <div style={{ flex: 1, overflowY: "auto", padding: "16px 16px 0" }}>
-
         {showIntro && (
           <div style={{ paddingBottom: 8 }}>
-            {/* Hero Card */}
             <div style={{
               background: "linear-gradient(135deg, #C0392B 0%, #7B241C 100%)",
               borderRadius: 20, padding: "24px 20px", marginBottom: 16, textAlign: "center",
               boxShadow: "0 8px 30px rgba(192,57,43,0.3)",
             }}>
               <div style={{ fontSize: 44, marginBottom: 8 }}>🏎️</div>
-              <div style={{ color: "#fff", fontSize: 20, fontWeight: 800, marginBottom: 6 }}>
-                Race Day Advisor
-              </div>
+              <div style={{ color: "#fff", fontSize: 20, fontWeight: 800, marginBottom: 6 }}>Race Day Advisor</div>
               <div style={{ color: "rgba(255,255,255,0.8)", fontSize: 13, lineHeight: 1.6 }}>
-                Instant FMU rules guidance for any situation on or off the stage
+                Instant FMU 2026 rules guidance with exact article citations for every answer
               </div>
             </div>
-
-            {/* Quick Scenarios */}
             <div style={{ marginBottom: 8 }}>
               <div style={{ fontSize: 12, fontWeight: 700, color: "#888", letterSpacing: "0.08em", marginBottom: 10, textTransform: "uppercase" }}>
                 Common Situations
@@ -340,10 +448,9 @@ export default function WaltsRallyAdvisor() {
         background: "#fff", borderTop: "1px solid #eee", padding: "10px 12px 14px",
         flexShrink: 0, boxShadow: "0 -4px 20px rgba(0,0,0,0.06)",
       }}>
-        {/* Quick chips when chatting */}
         {!showIntro && (
           <div style={{ display: "flex", gap: 6, marginBottom: 8, overflowX: "auto", paddingBottom: 2 }}>
-            {QUICK_SCENARIOS.slice(0, 5).map((s, i) => (
+            {QUICK_SCENARIOS.slice(0, 6).map((s, i) => (
               <button key={i} onClick={() => sendMessage(s.prompt)} style={{
                 background: "#f8f8f8", border: "1.5px solid #eee", color: "#555",
                 padding: "5px 11px", borderRadius: 20, cursor: "pointer", fontSize: 11,
@@ -357,7 +464,6 @@ export default function WaltsRallyAdvisor() {
             ))}
           </div>
         )}
-
         <div style={{ display: "flex", gap: 8, alignItems: "flex-end" }}>
           <textarea
             ref={inputRef}
@@ -382,9 +488,7 @@ export default function WaltsRallyAdvisor() {
             disabled={!input.trim() || loading}
             style={{
               width: 44, height: 44, borderRadius: "50%", flexShrink: 0,
-              background: input.trim() && !loading
-                ? "linear-gradient(135deg, #C0392B, #922B21)"
-                : "#e8e8e8",
+              background: input.trim() && !loading ? "linear-gradient(135deg, #C0392B, #922B21)" : "#e8e8e8",
               border: "none", cursor: input.trim() && !loading ? "pointer" : "not-allowed",
               display: "flex", alignItems: "center", justifyContent: "center",
               fontSize: 16, transition: "all 0.2s",
