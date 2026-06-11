@@ -432,6 +432,274 @@ CRO — COMPETITORS RELATIONS OFFICER (Art. 11.3)
 - The CRO must NOT say anything that might give rise to protests; they mediate before escalating to Stewards.
 - APPROACH THE CRO FIRST for any regulatory query before filing a formal protest.
 
+
+═══════════════════════════════════════════
+KEY DEFINITIONS (Art. 2.1 - 2.28)
+═══════════════════════════════════════════
+Art. 2.1 BEGINNING OF RALLY: Rally begins on day of admin checks or reconnaissance (whichever earlier). Competition element begins at TC0.
+Art. 2.4 CONTROL ZONE: Zone between the first yellow warning sign and the final beige sign with three transverse stripes.
+Art. 2.5 CREW: Two persons (driver + co-driver). Either may drive unless otherwise stated. Both must hold FMU competition licence and valid driving licence. If no competitor listed, driver is also competitor. When competing outside Uganda, crews must have international insurance covering repatriation.
+Art. 2.6 DECISION: Document issued by Stewards announcing findings following an enquiry, hearing or investigation.
+Art. 2.9 LEG: Each competitive part of the rally, separated by an overnight regroup (parc fermé). Super Special Stages on evening before Leg 1 = Section 1 of Leg 1.
+Art. 2.11 NEUTRALISATION: Time during which a crew is stopped by organisers for whatever reason where parc fermé rules apply.
+Art. 2.12 NOTIFICATION: Official written document issued by the Clerk of the Course informing competitors of application of regulations.
+Art. 2.13 PARC FERMÉ: Area where no operation, checking, tuning or repair is allowed unless expressly permitted. Only authorised officials admitted.
+Art. 2.14 PROHIBITED SERVICE: Use or receipt of any manufactured materials, spare parts, tools or equipment other than those carried in the competing car, or presence of team personnel where not permitted.
+Art. 2.17 REGROUP: Stop under parc fermé conditions with TC at entrance and exit to regroup cars. Stopping time may vary crew to crew.
+Art. 2.19 SECTION OF THE RALLY: Each part of the rally separated by a regroup.
+Art. 2.21 SPECIAL STAGE: Timed speed test on roads closed to the public for the rally.
+Art. 2.22 SUPER SPECIAL STAGE: Any variation from normal special stage running as detailed in Supplementary Regulations.
+Art. 2.25 TECHNICAL ZONE: Zone between two time controls for technical checks by scrutineers.
+Art. 2.26 WAIVER: FMU may only grant a waiver in a special, unavoidable and individual situation. A waiver cannot change the general meaning of the regulations.
+Art. 2.27 YELLOW CARD: Given to an organiser for serious lack of safety. Sporting Commission may exclude event from next year's calendar.
+Art. 2.28 BLUE CARD: Given to organiser for serious lack of compliance with regulations/commitments. Organiser must accept and implement action list to stay on next calendar.
+
+Art. 1.9 PENALTIES: Any breach of the Code, NCRs, or Supplementary Regulations by any organiser, official, competitor, driver or other person may be penalised or fined. Decision of Jury/Stewards is immediately binding if it concerns safety or irregularity of entry. For other matters, penalty suspended if competitor appeals — but competitor cannot appear at prize-giving in better position unless appeal is won.
+Art. 19.2 ROAD BOOK: All crews receive a Road Book with detailed description of the compulsory itinerary. Electronic version issued in PDF the weekend before the rally. Any deviation from road book instructions reported to the Stewards. Organisers may erect barriers at points where deviation was noted during reconnaissance.
+Art. 30.2 DOCUMENTS AT ADMIN CHECKS: Driver and co-driver competition licences, valid driving licences, passports/ID, ASN authorisation (foreign competitors), completed entry form, car registration papers, proof of car ownership or written consent to compete.
+Art. 45.1 MAXIMUM PERMITTED LATENESS: Any lateness exceeding 15 minutes on any individual target time, OR accumulative lateness exceeding 30 minutes between two overnight regroups = crew retired at that control. Maximum penalty applied = penalty for 30 minutes late. Crew may nevertheless restart under Art. 54.
+
+═══════════════════════════════════════════
+RALLY CHARACTERISTICS (Art. 10)
+═══════════════════════════════════════════
+Art. 10.1 RALLY CONFIGURATION:
+- All special stage surfaces must remain the same throughout a rally (Art. 10.1.1).
+- Rallies must not exceed 350km total. Special stages between 120km-140km. No more than 60km of stages between service park visits (Art. 10.1.2).
+- No one complete stage may be run more than three times in a rally (SSS excluded) (Art. 10.1.3).
+- Average speed for target times shall not exceed 50kph (Art. 10.1.4).
+
+Art. 10.2 PROGRAMMES:
+- No event shall have more than 4 special stages (6 for ARC) each repeated no more than 3 times (Art. 10.2a).
+- Timetable order: Reconnaissance → Administration → Scrutineering → Ceremonial Start (if any) → Rally → Podium Ceremony (Art. 10.2.1).
+- Duration limited to 3 days including reconnaissance (except ARC) (Art. 10.2.2).
+- All competitive parts run on Friday and Saturday (Art. 10.2.3).
+- Podium ceremony within 1 hour of last car arriving at final service (Art. 10.2.4).
+- Reconnaissance over 2 days (Art. 10.2.5).
+
+Art. 10.3 RESPECT OF ITINERARY:
+- Except force majeure, Clerk of Course must ensure itinerary is respected (Art. 10.3.1).
+- No objections made immediately before or during the rally will be considered unless approved by FMU Safety Delegate (Art. 10.3.2).
+
+Art. 10.4 FMU INSPECTION:
+- Route must be inspected by FMU, Uganda Police and National Road Safety Council at least 8 weeks before the event (Art. 10.4.1).
+- If inspection has serious concerns, FMU may require improvements and re-inspection within 7 weeks; at organiser's expense (Art. 10.4.2).
+
+═══════════════════════════════════════════
+MARSHALS & OFFICIALS CONDUCT (Art. 11.4 / 11.5)
+═══════════════════════════════════════════
+Art. 11.4 MARSHALS: Members of service clubs UMMA and UMSSMA must marshal events. Non-members may marshal if trained and certified by FMU and supervised by a service club member at every station.
+Art. 11.5 OFFICIALS CODE OF CONDUCT: Officials must place safety above all else; operate within rules; be ethical, fair and honest; respect all persons; not gamble on any event they are officiating. Breach may result in suspension or termination of arrangements with FMU.
+
+═══════════════════════════════════════════
+INSURANCE (Art. 21)
+═══════════════════════════════════════════
+Art. 21.1: Supplementary Regulations must give details of insurance cover taken out by organisers (Art. 21.1).
+Art. 21.2 PUBLIC LIABILITY: Insurance must guarantee adequate cover for civil liability towards third parties. Must be in effect from start of first competition element until end of rally or permanent retirement/disqualification (Art. 21.2.3).
+Art. 21.3 EXCLUSION: Service vehicles and reconnaissance cars are NOT covered by rally insurance policy (Art. 21.3).
+
+═══════════════════════════════════════════
+COMPETITION NUMBERS — DISPLAY RULES (Art. 27)
+═══════════════════════════════════════════
+Art. 27.1: Organiser provides number identification panels. Must be affixed before scrutineering. Any mandatory advertising within panels is obligatory — cannot be refused or modified.
+Art. 27.2 FRONT DOOR PANELS: Two panels, 67cm wide x 17cm high, with matt black number box at front. Numerals fluorescent yellow, 14cm high. Placed at leading edge of front door.
+Art. 27.3 REAR WINDOW: Max 30cm wide x 10cm high, positioned at bottom centre of rear window. Adjacent 15cm x 15cm fluorescent orange number.
+Art. 27.4 SIDE WINDOWS: Two numbers per rear side window, 20cm high, fluorescent orange, placed adjacent to crew names.
+Art. 27.5 ROOF PANEL: 50cm wide x 52cm high, placed on roof with top towards front of car.
+Art. 27.6 FRONT PLATE: Rectangle 43cm wide x 21.5cm high, includes competition number and full name of rally.
+
+═══════════════════════════════════════════
+DRIVER & CO-DRIVER NAMES DISPLAY (Art. 28)
+═══════════════════════════════════════════
+Art. 28.1: First initial(s) and surname of driver and co-driver, plus national flags, must appear on rear side windows on both sides. Names in white Helvetica, 6cm high. Driver's name is the upper name on both sides.
+Art. 28.3: Names will also appear on front fenders.
+Pseudonyms: Competitors may use a pseudonym. No one may use two pseudonyms. Cannot revert to own name until new licence obtained under own name (Art. 28.1 ISC ref).
+
+═══════════════════════════════════════════
+CHAMPIONSHIP ADVERTISING (Art. 29.5)
+═══════════════════════════════════════════
+Art. 29.5: Championship Promoter may apply championship identification stickers to: space 15cm high below windscreen top; space 6cm high x 67cm wide immediately below front door panel; space up to 10cm high x 20cm wide on dashboard visible to on-board camera.
+
+═══════════════════════════════════════════
+SCRUTINEERING — CHECKS DURING RALLY (Art. 32 / 33)
+═══════════════════════════════════════════
+Art. 32.1: Additional checks on safety items, clothing, car conformity and eligibility may be carried out at ANY time during the rally at sole discretion of FMU Technical Delegate with knowledge of Stewards.
+Art. 32.2: Competitor is responsible for technical conformity of car throughout the rally and must be able to provide all related official documents. If identification marks are missing: reported to Stewards. Any tampered identification marks reported to Stewards.
+
+Art. 33.1 FINAL PARC FERMÉ: After finish, cars must be placed in parc fermé until Stewards authorise opening. Provisional classification published as soon as practical after last car checks in at final control.
+Art. 33.2: Post-rally scrutineering involving dismantling may be carried out at Stewards' discretion, following a protest, or on CoC/Technical Delegate recommendation.
+Art. 33.3: Complete FIA/ASN homologation form and Technical Passport must be available for final checks.
+
+═══════════════════════════════════════════
+DRIVING CONDUCT — GENERAL RULES (Art. 34.1)
+═══════════════════════════════════════════
+Art. 34.1.1: Crews must always behave in a sporting manner.
+Art. 34.1.2: Cars under parc fermé may only be moved by crews and officials. Otherwise anyone may push by hand. No other manner of moving is permitted except as allowed by regulations.
+Art. 34.1.4: Crews must always drive in the direction of the special stage (except to effect a turn round).
+Art. 34.1.5: On road sections/public roads, competition car may only be driven on four freely rotating wheels and tyres. Non-compliance = retired, additional penalty possible.
+Art. 34.1.6: Driving with a badly damaged windscreen that significantly obstructs vision is forbidden. Stewards may prohibit crew from competing. Crew may restart under Art. 54. Driving without a windscreen: both crew members must wear protective goggles (EN 1938) or closed-visor full face helmet.
+
+═══════════════════════════════════════════
+RECONNAISSANCE CARS & TYRES (Art. 35.1 / 35.2)
+═══════════════════════════════════════════
+Art. 35.1 RECONNAISSANCE CARS: Must be painted in single colour with no advertising. Standard or Production Cars only. Underbody protection authorised. Two additional road-homologated headlamps permitted. Navigation equipment may be fitted.
+Art. 35.2 TYRES FOR RECONNAISSANCE: Road-homologated series production tyres for asphalt. Tyres free for gravel (unless SSRs specify otherwise).
+
+═══════════════════════════════════════════
+SHAKEDOWN (Art. 36)
+═══════════════════════════════════════════
+Art. 36.1: Shakedown is a short test section run before the rally starts. Participation is at competitor's discretion.
+Art. 36.2: Shakedown run according to organiser timetable. Each crew has limited number of passes as specified in SSRs.
+Art. 36.3: Participation in shakedown is at competitor's own risk.
+Art. 36.4: Competing car must comply with all technical requirements at shakedown.
+Art. 36.5: If car breaks down during shakedown, repairs may be made in the shakedown area.
+Art. 36.7: Service is permitted during shakedown.
+
+═══════════════════════════════════════════
+CEREMONIAL START (Art. 39)
+═══════════════════════════════════════════
+Art. 39: A ceremonial start may be organised. Start interval and order at organiser's discretion. Must be in SSRs. If crew cannot participate in their competing car, they may still start the rally at allocated time — but must attend ceremonial start in overalls at their due time and notify Stewards.
+
+═══════════════════════════════════════════
+START AREA (Art. 40.1)
+═══════════════════════════════════════════
+Art. 40.1: Before competition element starts, organisers may assemble all cars in a start area. Penalties for late arrival in start area specified in SSRs. No service allowed in the start area.
+
+═══════════════════════════════════════════
+START ORDER & INTERVALS (Art. 41)
+═══════════════════════════════════════════
+Art. 41.1: Start order unchanged until at least 10% of total special stage distance completed.
+Art. 41.2: Clerk of Course may reposition drivers or change intervals for safety reasons, with knowledge of Stewards.
+Art. 41.3: Leg 1 — Reverse Start Order used (except regional rally championship event). Weather conditions considered.
+Art. 41.4: Subsequent Legs — Reverse Start Order used. Weather conditions considered.
+Art. 41.5: All cars start at 3-minute intervals unless SSRs or championship regulations specify otherwise.
+
+═══════════════════════════════════════════
+CONTROLS — GENERAL (Art. 42 / 43)
+═══════════════════════════════════════════
+Art. 42.1: All controls and zones must be indicated by FIA-approved standardised signs and shown in road book.
+Art. 42.2: Area of at least 5m both before and after a control must be protected by barriers on both sides.
+Art. 42.3: Stopping time within any control area limited to time necessary for control operations only.
+Art. 42.4: Controls must be ready at least 60 minutes before target time for first car. Cease operating 15 minutes plus max lateness after last car's due time.
+Art. 42.5: Crews must check in at controls in correct sequence and in direction of rally route. Re-entering a control area is prohibited.
+Art. 42.6: Crews must follow instructions of marshals at any control. Failure = reported to Stewards.
+Art. 43 PASSAGE CONTROLS: Marshals stamp/sign the time card only — no time entered.
+
+═══════════════════════════════════════════
+TIME CONTROL FOLLOWED BY SPECIAL STAGE (Art. 44.3)
+═══════════════════════════════════════════
+Art. 44.3.1: At TC followed by stage start, marshal enters both check-in time AND provisional stage start time on time card. Must be a 3-minute gap for crew to prepare.
+Art. 44.3.4: If difference between provisional and actual start time, the time entered at the stage start by the marshal is binding, unless Stewards decide otherwise.
+
+═══════════════════════════════════════════
+EARLY ARRIVAL AT TIME CONTROLS (Art. 45.2)
+═══════════════════════════════════════════
+Art. 45.2: Early arrival does NOT reduce maximum permitted lateness under any circumstances.
+
+═══════════════════════════════════════════
+REGROUP CONTROLS (Art. 46)
+═══════════════════════════════════════════
+Art. 46.1: On arrival at regroup, crews receive instructions about start time. Must drive as directed by marshals. All crews must be prepared to spend up to 5 minutes in an autograph zone adjacent to TC (Art. 46.1.2). Regroups must always precede service (Art. 46.1.3).
+Art. 46.2: Cars restart in order of arrival at regroup (except after overnight regroup and before Power Stage). CoC may reposition any car with Stewards' knowledge.
+
+═══════════════════════════════════════════
+SPECIAL STAGE — GENERAL & TIMING (Art. 47)
+═══════════════════════════════════════════
+Art. 47.1: Special stages timed to the tenth of a second. Free Practice and Qualifying: to thousandth of a second.
+
+═══════════════════════════════════════════
+SPECIAL STAGE START PROCEDURE (Art. 48.1 / 48.2 / 48.3 / 48.5)
+═══════════════════════════════════════════
+Art. 48.1: Stages commence from a standing start with car placed on start line.
+Art. 48.2: Electronic start procedure (countdown clock or sequential light system) must be described in SSRs. Start line must be permanent. Jump start photocell 50cm after start line. After actual start time written on time card, card given back to crew as soon as possible. Car positioned behind marshal's stick. One minute before start: stick removed. Any subsequent change of car position until start time is not permitted and will be reported to Stewards.
+Art. 48.3 MANUAL START: Countdown aloud: 30", 15", 10", then last 5 seconds one by one.
+Art. 48.5: When stage delayed more than 20 minutes, spectators must be advised before next competing car passes. Otherwise stage must be stopped.
+
+═══════════════════════════════════════════
+SPECIAL STAGE FINISH (Art. 49)
+═══════════════════════════════════════════
+Art. 49.1 FINISH LINE: Finish time recorded at the flying finish — at least 200m before stop line. Area between flying finish and stop line must be free from bends, sharp corners, or hazards. Stopping between yellow warning sign and stop sign is FORBIDDEN and will be reported to Stewards.
+Art. 49.2 STOP POINT: Crew must report to stop point (red STOP sign) to have finishing time entered on time card (hour, minute, second, tenth of second). Marshal may stamp card only if time cannot be given immediately — time entered at next regroup.
+
+═══════════════════════════════════════════
+SUPER SPECIAL STAGES (Art. 51)
+═══════════════════════════════════════════
+Art. 51.1: When more than one car starts simultaneously, track design at each start must be similar. Maximum distance: 5km. Inclusion in itinerary is optional.
+Art. 51.2: Specific regulations (running, start order, intervals) entirely at organiser's discretion, subject to FMU approval. Must be in SSRs.
+Art. 51.3: Red Flags or Red Lights must be positioned to signal competitors to stop or slow. Car failing to complete stage may be transported by organisers to end of stage or safe location.
+
+═══════════════════════════════════════════
+STAGE INTERRUPTION DETAILS (Art. 52.1 / 52.2 / 52.5)
+═══════════════════════════════════════════
+Art. 52.1: When stage interrupted/stopped for any reason, each affected crew allocated fairest possible time by CoC. A crew solely or jointly responsible for stopping a stage CANNOT benefit from this measure.
+Art. 52.2: If crew/vehicle substantially hindered by car in front, CoC may give a time credit (notional time).
+Art. 52.5: Tracking data guides the CoC's decision on notional time.
+
+═══════════════════════════════════════════
+CREW SAFETY EQUIPMENT (Art. 53.1)
+═══════════════════════════════════════════
+Art. 53.1: Whenever car is in motion on any special stage until stop control, crew must wear: homologated crash helmets, all required safety clothing and equipment, safety belts correctly fastened. Any infringement penalised by Stewards.
+
+═══════════════════════════════════════════
+INCIDENT INVOLVING NON-CREW MEMBER (Art. 53.4)
+═══════════════════════════════════════════
+Art. 53.4: If crew involved in accident where a non-crew member sustains physical injury, car must stop immediately and SOS procedure (Art. 53.3.1) must be followed.
+
+═══════════════════════════════════════════
+AIR ASSISTANCE (Art. 56.3)
+═══════════════════════════════════════════
+Art. 56.3: Any air assistance for crews including communication from air to crew is FORBIDDEN.
+
+═══════════════════════════════════════════
+SERVICE PARK — GENERAL & LAYOUT (Art. 57.1 / 57.2 / 57.3 / 57.5 / 57.6)
+═══════════════════════════════════════════
+Art. 57.1: One main service park throughout the rally. Each competitor must protect their service bay with a ground sheet/environmental mat.
+Art. 57.2 SERVICE SCHEDULES: 15 minutes before first SS after overnight regroup; 30 minutes between groups of stages (preceded by 3-min technical zone); 45 minutes at end of each section before overnight regroup (10-min technical checks in parc fermé); 10 minutes prior to finish.
+Art. 57.3: Service parks indicated in itinerary with TC at entrance and exit.
+Art. 57.5: Inside service park, officials/marshals and team personnel may tow, transport or push a car.
+Art. 57.6: Organiser may allocate a Service Park Area to each team. Team vehicles must park within their allocated area or in adjacent parking with auxiliary plates.
+
+═══════════════════════════════════════════
+FUEL TANK EMPTYING IN SERVICE PARK (Art. 58)
+═══════════════════════════════════════════
+Art. 58: Emptying/refilling fuel tank in service park permitted only when: work is known to organiser; fire extinguisher with operator on standby provided by competitor; no other work on car while fuel circuit open; suitable safety perimeter established; only sufficient fuel added to reach next refuelling area.
+
+═══════════════════════════════════════════
+REFUELLING — LOCATION & COMMERCIAL STATIONS (Art. 61.1 / 61.3)
+═══════════════════════════════════════════
+Art. 61.1: Refuelling only in designated Refuelling Areas (at exit of service parks or remote locations on route) or commercial filling stations. Maximum 2 different RZs between two overnight regroups (Art. 61.1.2). Entry/exit of refuelling zones marked by blue can or pump symbol (Art. 61.1.3). Fire appliance/safety measures required at any refuelling area (Art. 61.1.4).
+Art. 61.3: Procedure at commercial filling stations: N/A (standard commercial rules apply).
+
+═══════════════════════════════════════════
+FUEL USE (Art. 62)
+═══════════════════════════════════════════
+Art. 62: All fuel must comply with Appendix J Art. 252.9. Refer to championship regulations for specific fuel requirements.
+
+═══════════════════════════════════════════
+PARC FERMÉ — DETAILED RULES (Art. 63.1 / 63.3 / 63.6 / 63.7)
+═══════════════════════════════════════════
+Art. 63.1 APPLICATION: Cars subject to parc fermé rules: from entering a regroup park until leaving; from entering/checking in at a control area until leaving; from end of competition until Stewards authorise opening.
+Art. 63.3: Only officials on duty and crew members may push or tow a competing car inside parc fermé.
+Art. 63.6: N/A
+Art. 63.7: Tracking devices and on-board cameras may only be removed from parc fermé after rally with agreement of FMU Technical Delegate/Chief Scrutineer and under marshal control.
+
+═══════════════════════════════════════════
+RESULTS — ESTABLISHING & PUBLICATION (Art. 64.1 / 64.2 / 64.4)
+═══════════════════════════════════════════
+Art. 64.1: Results established by adding all special stage times + all time penalties on road sections + all other time penalties.
+Art. 64.2 PUBLICATION ORDER:
+- Unofficial Classifications: distributed during rally.
+- Partial Unofficial Classifications: published at end of each Leg.
+- Provisional Classification: published by organiser at end of rally.
+- Final Classification: approved by Stewards.
+Art. 64.4: Organiser must ensure any broadcast coverage is fair, impartial, and does not misrepresent results.
+
+═══════════════════════════════════════════
+RALLY PRIZE GIVING — CEREMONY DETAILS (Art. 66.1 / 67)
+═══════════════════════════════════════════
+Art. 66.1: Competition element finishes at Finish Time Control IN.
+Art. 67.1 ANNUAL FMU PRIZE-GIVING: Any driver or co-driver winning an FMU Championship MUST be present at the annual FMU prize-giving ceremony.
+Art. 67.2: Absence without force majeure = fine imposed by FMU.
+
 ═══════════════════════════════════════════
 2026 FMU SEASONALLY ALLOCATED COMPETITOR NUMBERS (Art. 26)
 ═══════════════════════════════════════════
