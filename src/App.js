@@ -777,10 +777,15 @@ export default function WaltsRallyAdvisor() {
         }),
       });
       const data = await response.json();
-      const reply = data.choices?.[0]?.message?.content || "No response received.";
-      setMessages([...newMessages, { role: "assistant", content: reply }]);
+      if (!response.ok) {
+        const errMsg = data?.error?.message || JSON.stringify(data);
+        setMessages([...newMessages, { role: "assistant", content: `⚠️ API Error (${response.status}): ${errMsg}` }]);
+      } else {
+        const reply = data.choices?.[0]?.message?.content || "No response received.";
+        setMessages([...newMessages, { role: "assistant", content: reply }]);
+      }
     } catch (err) {
-      setMessages([...newMessages, { role: "assistant", content: "⚠️ Connection error. Please try again." }]);
+      setMessages([...newMessages, { role: "assistant", content: `⚠️ Connection error: ${err.message}` }]);
     }
     setLoading(false);
     setTimeout(() => inputRef.current?.focus(), 100);
