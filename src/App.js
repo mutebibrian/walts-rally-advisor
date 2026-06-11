@@ -220,6 +220,14 @@ FUEL / REFUELLING (Art. 61)
 - Only 2 team members per crew may access RA (Art. 61.2.8).
 
 ═══════════════════════════════════════════
+2026 FMU SEASONALLY ALLOCATED COMPETITOR NUMBERS (Art. 26)
+═══════════════════════════════════════════
+Use this list to instantly answer questions about competitor car numbers or who drives a given number.
+Numbers 1-12 reserved for FMU Premier drivers. Number 77 RETIRED in memory of Bike 77.
+
+#1-Ronald SEBUGUZI | #3-Duncan Mubiru | #4-Ponsiano Lwakataka | #5-Peter KALULE | #6-Aine Kaguta 'Sodo' | #7-Mansoor LUBEGA | #8-Amir KAVUMA | #9-Haruna KATAZA | #10-Mike MUKULA Jr | #11-Julius SEMAMBO | #12-Didas MASIKO | #14-Musa Segabwe | #15-Samuel BWEETE | #16-Faizal KAYIRA | #17-Yassin Nasser | #18-Umar DAUDA | #19-Ibrahim LUBEGA | #20-Hassan Alwi | #21-Nasser MUTEBI | #22-Joshua MUWANGUZI | #23-Edward KIRUMIRA | #24-Isaac SSOZI | #25-Oscar NTAMBI | #26-Odeon TUMWEBAZE | #27-Samuel WATENDWA | #28-WO1 Ismail LULE | #29-Sadat NEGOMBA | #30-Ahmed SENYONJO | #31-Ali OMAR 'Bobo' | #32-Susan MUWONGE | #33-Fred BUSULWA | #35-John CONSTA | #36-Francis OMO | #37-Dr. Henry MASERUKA | #38-Dr. Godfrey NSEREKO | #39-Yassin MUKASA | #40-Nasser RATIB | #41-Jamada LWABAGA | #42-Timothy GAWAYA | #43-Moustapha MUKASA | #44-Walter Kibande | #45-Ahmed Kateete jr | #46-Kevin Bebeto | #47-Shid MAKUMBI | #48-Jas MANGAT | #49-Abaasi MAYINJA | #50-Byron RUGOMOKA | #51-Amir KAWEESA | #52-Issa NYANZI | #53-Omar MAYANJA | #54-Andrew MUSOKE | #55-Gilberto BALONDEMU | #56-Godfrey KIYIMBA | #57-Patrick SEBAMBULIDDE | #58-Ali MOHAMMED | #59-Patrick RUYONGA | #60-Humphrey KAWUKI | #61-Ian Hanz BACHU | #62-Sande MUBIRU | #63-Geofrey MUNYEGERA | #64-Samuel SEKANDI | #65-Nasib SESSANGA | #66-Topher KATEERA | #67-Chris Bahizi | #68-Robert K. SENTONGO | #69-Doreen ASIIMWE | #70-John P. KYEBAMBE | #71-Ukasha Mugoya | #72-Sharif MUYANJA | #73-Najib Ssempijja | #74-Japhethi Lugayizi | #75-Salim GASEMBA | #76-Abaasi SEBUNYA | #77-RETIRED (memory of Bike 77) | #78-Muzamir Watolya | #79-Fred SENKUMBA | #80-Muzamir Watolya | #81-Fred SENKUMBA | #82-Yusuf BUKENYA | #83-Frank TATYA | #84-Edson Mungyereza | #85-Kuku RANJIT | #86-Wyclif Bukenya | #87-Shafic SSENDAGIRE | #89-Paul KASOZI | #90-Muyanja Sabiti | #91-Umar Kakyama | #92-Innocent Bwamiki | #93-John Burrows | #94-Vicent Muwanguzi | #95-Abdul Kateete | #96-Ahmed Mayinja | #97-Salim KYEBAGADA | #98-Mansoor SSANYA | #99-Arthur Blick | #100-Jonas KANSIIME | #101-Sempera Kakule | #102-Fred Wampamba | #103-Happy K. Richard | #104-Farouk Ssentongo | #105-Unissan Bakunda
+
+═══════════════════════════════════════════
 RESPONSE FORMAT
 ═══════════════════════════════════════════
 Always structure your answer with these clear sections when applicable:
