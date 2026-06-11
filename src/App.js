@@ -219,6 +219,219 @@ FUEL / REFUELLING (Art. 61)
 - Engine must be switched off throughout refuelling (Art. 61.2.6).
 - Only 2 team members per crew may access RA (Art. 61.2.8).
 
+
+═══════════════════════════════════════════
+TYRES (Art. 13)
+═══════════════════════════════════════════
+- All tyres must be moulded. Hand cutting or modification of tread pattern is prohibited (Art. 13.1.2).
+- Chemical/mechanical treatment of tyres is prohibited (Art. 13.1.3).
+- Tarmac tyre tread depth must not be less than 1.6mm over at least 3/4 of the tread pattern at all times (Art. 13.1.9).
+- Cars must carry minimum ONE and maximum TWO spare wheels (Art. 13.12).
+- No complete wheel may be loaded/unloaded outside service parks or authorised tyre change areas (Art. 13.12).
+- Tyre pressure adjustment permitted when: waiting time between TC and stage start >13 minutes, OR in regroups >10 minutes followed by a stage (Art. 13.10).
+- Tyre controls may be carried out at any time. Non-conforming tyre marked and must not be used (Art. 13.7).
+
+═══════════════════════════════════════════
+CAR CLASSES (Art. 12)
+═══════════════════════════════════════════
+RC1: National Rally Cars 1.6T (WRC) and S2000 1.6T with 28mm restrictor.
+RC2: S2000 2.0 Atmospheric, R5/R4/NR4, Group A over 1600cc-2000cc, Super 1600, R2/R3 variants.
+RC3: R3 Turbo up to 1620cc, R3 Diesel up to 2000cc, Group A up to 1600cc.
+RC4: R2 variants up to 1600cc, Kit-car up to 1600cc, Group N 1600-2000cc, Group N up to 1600cc.
+RC5/NATIONAL: R1, 2WD non-homologated cars up to 2000cc, FIA R5 out of homologation, expired homologation cars.
+S (CLASSIC): Pre-1985 models conforming to Appendix J Art. 253.
+NATIONAL SUPER A: Group A regulations with 34mm restrictor.
+SPV: Vehicle not in original form re: body and engine; 33mm turbo restrictor; all road legal vehicles allowed.
+2WD Championship: Max 2000cc. Showroom 2WD with 1000cc turbo or naturally aspirated permitted (Art. 7.2.2).
+FMU Technical Passport is mandatory for ALL cars (Art. 12.2). Class may be changed at scrutineering if car does not match entered class (Art. 25.1).
+
+═══════════════════════════════════════════
+TURBOCHARGERS & TRANSMISSIONS (Art. 16.2 / 16.3)
+═══════════════════════════════════════════
+TURBOCHARGERS: Turbocharger + one spare sealed at pre-rally scrutineering with same-numbered seals. All seals must remain intact to end of rally (Art. 16.2.5). Rally2 cars: FIA boost control pop-off valve sealed at scrutineering, must remain sealed unless FIA/FMU Technical Delegate approves otherwise (Art. 16.2.7).
+TRANSMISSIONS: One spare gearbox + one set spare differentials permitted per rally. All sealed at initial scrutineering. Changes only in service park with scrutineers informed beforehand (Art. 16.3.6). Seals must remain intact from scrutineering to end of rally (Art. 16.3.8).
+
+═══════════════════════════════════════════
+ON-BOARD CAMERAS & TRACKING (Art. 18)
+═══════════════════════════════════════════
+- On-board camera must clearly show driver's eye view; alternate power source required (Art. 18.1.1). Highly recommended — it is primary evidence for disputes.
+- All cars must be fitted with organiser-provided tracking system. Installation checked at scrutineering (Art. 18.2).
+- Any interference with camera or tracking system = reported to Stewards (Art. 18.1.5 / 18.2).
+
+═══════════════════════════════════════════
+BULLETINS (Art. 2.2)
+═══════════════════════════════════════════
+- A Bulletin clarifies or completes the Supplementary Regulations. It CANNOT change or amend the Rally Sporting Regulations — only a waiver granted by FMU can do that (Art. 2.2).
+- Before admin checks: issued by organisers with FMU approval.
+- During competition: issued by Stewards. Itinerary changes issued by CoC (Stewards must be advised).
+- Must be numbered, dated, displayed on yellow paper/background on official notice boards.
+- Competitors must confirm receipt by signature (unless impossible during the rally).
+
+═══════════════════════════════════════════
+ENTRY PROCEDURES & FEES (Art. 22-24)
+═══════════════════════════════════════════
+- Entry form + full entry fee must be submitted before closing date (Art. 22.1).
+- Car may be replaced freely up to scrutineering (Art. 22.2).
+- Foreign competitors: must obtain International Competition Authorisation from FMU Sporting Commission at least 4 weeks before entry close (Art. 22.3).
+- One crew member replacement: before admin checks = organiser consent; after admin checks start but before start list publication = Stewards consent (Art. 22.4).
+- Replacing BOTH crew members after close of entries: FMU ONLY may authorise (Art. 22.4).
+- Standard entry closing date: no later than 1 week before rally start (Art. 23.2).
+- Full refund of entry fees: if entry not accepted OR rally does not take place (Art. 24.2).
+- Partial refund: as per Supplementary Regulations (Art. 24.3).
+
+═══════════════════════════════════════════
+ADVERTISING (Art. 29)
+═══════════════════════════════════════════
+- Competitors may display any advertising provided it is: authorised by law, not offensive, not political/religious, does not obstruct vision (Art. 29.1).
+- Mandatory organiser advertising is obligatory and cannot be refused by competitors (Art. 27.1.2).
+- Optional organiser advertising refusal: competitor may be charged extra — max double entry fee, absolute maximum UGX 1,000,000 (Art. 29.4.1).
+- No extra fee for optional advertising referring to a car make, tyres, fuel or lubricant if competitor justifies refusal to Stewards (Art. 29.4.2).
+
+═══════════════════════════════════════════
+PRIORITY DRIVERS (Art. 9)
+═══════════════════════════════════════════
+- P1: Former overall rally champions OR won an event OR won several stages in FMU NRC in one of last 3 years (Art. 9.1).
+- P2: Won the DIV 1 Championship in the previous 3 years (Art. 9.1).
+- P3: Won a Club Rally Championship in the previous 3 years (Art. 9.1).
+- Numbers 1-12 reserved for FMU Premier (P1) drivers in order of previous season seeding (Art. 26.2).
+- Stewards may REPOSITION a priority driver if their car does not justify their priority start position (Art. 9.2).
+- Non-Scoring (NS) competitors: participate but NOT eligible for championship points (Art. 9.3).
+
+═══════════════════════════════════════════
+POWER STAGE (Art. 50)
+═══════════════════════════════════════════
+- Must be the LAST stage of the rally. Maximum 12km (Art. 50.1).
+- Driver must be classified in Final Classification to score Power Stage points (Art. 50.3.1).
+- Crew not starting in correct order: ineligible for Power Stage points and cannot detract points from others (Art. 50.3.1).
+- Stage time + all time penalties including false start penalties = Power Stage classification time.
+- If stage stopped before all eligible crews complete it: Stewards may decide no points awarded (Art. 50.3.2).
+
+═══════════════════════════════════════════
+TEAM CHAMPIONSHIP (Art. 7.3)
+═══════════════════════════════════════════
+- Team must comprise MORE than 2 crews. Must register + pay registration fee. Must appoint licensed Team Manager (Art. 7.3.1).
+- Must field 3 nominated crews per round, including at least 1 x 2WD crew (Art. 7.3.1d/e).
+- Only 2 BEST placed nominated crews score points. Third crew neither scores nor detracts points (Art. 7.3.1f).
+- Title awarded to team with highest points from 8 NRC events. Minimum 3 registered teams per event required (Art. 7.3.2b/c).
+
+═══════════════════════════════════════════
+CRC — CLUBMAN RALLY CHAMPIONSHIP (Art. 7.4)
+═══════════════════════════════════════════
+- Reserved for competitors in their 2nd year of competition who met Autocross requirements in the preceding year.
+- Must complete full year AND be classified finisher in at least 4 CRC events to be eligible for promotion to NRC (Art. 7.4.1).
+- CRC driver NOT eligible to participate in foreign competitions (Art. 7.4.1).
+- Failure to qualify for NRC: FMU CC may relegate to Autocross Championship (Art. 7.4.2).
+- CRC classified as finisher after completing at least 60% of total competitive distance (Art. 7.4.3).
+- CRC Co-drivers with Class C Licence: NOT eligible for NRC (Art. 7.4.4).
+- Experienced co-driver (Class A) who becomes 1st Driver: must compete in CRC for that full season, cannot score NRC/2WD points that season (Art. 7.4.5/7.4.6).
+
+═══════════════════════════════════════════
+PODIUM CEREMONY (Appendix IV)
+═══════════════════════════════════════════
+- Ceremony within 2 hours of last car arriving in final service (App. IV Art. 1.1).
+- Attendance MANDATORY for all competitors who completed the rally (Art. 66.4).
+- Missing any part without written CoC permission: UGX 1,500,000 penalty imposed by FMU (Art. 66.4).
+- Competitors MUST appear in competition wear or sponsors attire (Art. 66.5).
+- Order: 10th to 1st on ramp → top 3 on Olympic podium → trophy presentations → anthem/flags/champagne.
+- Maximum 6 persons may present prizes (App. IV Art. 1.8).
+- Olympic-style podium mandatory for NRC events for overall top 3 (Art. 66.2).
+- All awards may be presented while results are still provisional; must be returned if results change (Art. 66.3).
+
+═══════════════════════════════════════════
+MAXIMUM FINES BY AUTHORITY (Appendix R Art. 7)
+═══════════════════════════════════════════
+- Clerk of Course (non-FIA/FIM events): max UGX 250,000
+- Stewards of the Meeting: max UGX 750,000
+- FMU Competitions' Committee: max UGX 2,500,000
+- FMU Disciplinary Court: max UGX 3,000,000
+- FMU National Court of Appeal: max UGX 5,000,000
+Fine payment: immediately upon notification, before next Stewards meeting. Delay = possible omission from results or suspension (Art. 2.3.1).
+
+═══════════════════════════════════════════
+FULL APPEAL FEES (Appendix R)
+═══════════════════════════════════════════
+- National/International championship — appeal to tribunal or FMU Appeal Court: UGX 2,000,000
+- National/International championship — appeal to FMU Appeal Court against tribunal decision: UGX 2,000,000
+- Below national championship — appeal to tribunal or FMU Appeal Court: UGX 250,000
+- Below national championship — appeal against tribunal decision: UGX 325,000
+- Right to Review: UGX 500,000 (half returned if upheld) (Art. 65.3.3h)
+- Appeal to FMU National Court of Appeal (non-championship): UGX 1,000,000
+- Appeal by individual to FMU Court of Appeal: UGX 250,000
+- Appeal by individual to FMU National Court of Appeal: UGX 500,000
+- Appeal by FMU licensed official: UGX 150,000
+- Application for leave to appeal (where refused): UGX 250,000
+Fees paid to lower courts NOT refunded if appeal succeeds at higher court (App. R Art. 9.4).
+Administrative costs may be charged even if appeal succeeds — max 25% of appeal fee (App. R Art. 9.5).
+
+═══════════════════════════════════════════
+LICENCE FEES & CATEGORIES (Appendix R / Appendix T)
+═══════════════════════════════════════════
+LICENCE CATEGORIES (App. T):
+- Class A: Premier Division/Division 1 drivers + ALL co-drivers.
+- Class B: Division 2 drivers.
+- Class C: CRC drivers, Autocross Cadet, co-drivers in their first year.
+- Class D: Junior drivers under 18 years — Closed Circuit Autocross events ONLY.
+- Class K: Karting Championship.
+
+COMPETITION LICENCE FEES (App. R):
+- International Competition Licence: USD 250
+- National Class A (Premier/Div1 + all co-drivers): UGX 250,000
+- National Class B (Division 2): UGX 200,000
+- National Class C (CRC/Autocross/first-year co-drivers): UGX 150,000
+- National Class D (Junior Closed Circuit): UGX 150,000
+- Day Licence (Sprint/Autocross/Drifting/Karting): UGX 100,000
+- Day Licence (Motorcycling): UGX 50,000
+- Annual specially requested Competition Number: UGX 1,000,000
+- Rally Team Registration: UGX 1,000,000
+- Team Manager Licence: UGX 250,000
+- 50% surcharge on all licence applications received after June 30th (App. R Art. 5).
+- Licences valid for one calendar year, expire December 31st (App. T Art. 3).
+- Duplicate licence (lost/stolen): 50% of original fee (App. R Art. 5.1).
+
+OFFICIALS LICENCES FEES:
+- Category A: UGX 100,000 | Category B: UGX 80,000 | Category C: UGX 60,000 | Category D: UGX 60,000
+
+LICENCE VIOLATIONS:
+- Competing without licence or wrong licence: UGX 1,000,000 + loss of all points accrued (App. R Art. 2.2.7).
+- Organiser allowing unlicensed official to officiate: UGX 300,000 per official (App. R).
+- Competing in unauthorised event: 1st offence = 3 months suspension; 2nd = 12 months; 3rd = Worldwide Life Ban (App. T Art. 11).
+
+SUSPENSION EFFECTS (App. T Art. 5.3):
+- National suspension: licence returned to FMU, marked Not valid for [duration] (Uganda). Delay in returning adds to suspension.
+- International suspension: licence returned to FMU, not returned until suspension expires.
+- Disqualification: PERMANENT. Can only be pronounced by FMU Executive. Always international — notified to all ASNs/FMNs.
+
+MEDICAL (App. T Art. 6 / App. M):
+- Annual medical aptitude examination required for all drivers (App. M Art. 1.2).
+- Blood group + RH must be marked on driver's helmet and competing vehicle.
+- Anti-doping/alcohol tests may be carried out at any time (App. T Art. 14).
+- After accident causing incapacity of 10+ days: cannot compete again until FMU Competitions Committee authorises return (App. M Art. 3).
+- Driver must notify FMU if any medical condition becomes evident during the licence period (App. T Art. 6).
+- Incompatible with competing: epilepsy with behavioral effects; amputations (except fingers where gripping function preserved); limb movement impeded >50% (App. M Art. 1.4).
+
+═══════════════════════════════════════════
+ORGANISING PERMITS (Appendix XX)
+═══════════════════════════════════════════
+- Only FMU or FMU-affiliated clubs with FMU approval may organise competitions (App. XX Art. 2a).
+- Permit application at least 8 weeks before event. Must include draft SR, road book, safety plan (App. XX Art. 9).
+- Must first obtain permission from property owners, Police, Local and Government authorities (App. XX Art. 1).
+- No club may launch any event before FMU Certificate of No Objection is issued.
+- Unauthorised competition: all persons involved liable to penalties. All entry fees must be returned (App. XX Art. 8).
+- Late application: permit fee doubled (App. R Art. 2.2.1).
+- Date change on FMU calendar: penalty = 20% of prescribed organising fee (App. R Art. 2.2.2).
+- Late submission of results: UGX 10,000 per day late (App. R Art. 2.2.3).
+- Failing to display FMU logos: up to UGX 150,000 penalty (App. R Art. 2.2.6).
+
+═══════════════════════════════════════════
+CRO — COMPETITORS RELATIONS OFFICER (Art. 11.3)
+═══════════════════════════════════════════
+- At least one CRO must be at each event; must be easily identifiable (conspicuous badge/tabard).
+- Must be introduced to competitors at drivers briefing; photograph must appear in Supplementary Regulations.
+- Must hold FMU licence qualified to act as Clerk of Course or FMU Observer.
+- Attends ALL Stewards meetings to stay current on all decisions.
+- The CRO must NOT say anything that might give rise to protests; they mediate before escalating to Stewards.
+- APPROACH THE CRO FIRST for any regulatory query before filing a formal protest.
+
 ═══════════════════════════════════════════
 2026 FMU SEASONALLY ALLOCATED COMPETITOR NUMBERS (Art. 26)
 ═══════════════════════════════════════════
