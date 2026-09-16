@@ -399,7 +399,7 @@ export default function WaltsRallyAdvisor() {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          model: "openai/gpt-oss-120b",
+          model: "gemini-2.5-flash",
           max_tokens: 1500,
           messages: [
             { role: "system", content: SYSTEM_PROMPT },
