@@ -399,7 +399,7 @@ export default function WaltsRallyAdvisor() {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          model: "gemini-2.5-flash",
+          model: "gemini-3.6-flash",
           max_tokens: 1500,
           messages: [
             { role: "system", content: SYSTEM_PROMPT },

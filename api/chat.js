@@ -6,7 +6,7 @@
 // provider-agnostic — swapping AI providers again later only means editing
 // this file, not App.js.
 
-const GEMINI_MODEL_DEFAULT = "gemini-2.5-flash";
+const GEMINI_MODEL_DEFAULT = "gemini-3.6-flash";
 
 export default async function handler(req, res) {
   if (req.method !== "POST") {
