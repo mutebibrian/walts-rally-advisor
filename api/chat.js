@@ -9,10 +9,28 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: { message: "Method not allowed" } });
   }
 
-  const apiKey = process.env.GROQ_API_KEY;
+  const rawKey = process.env.GROQ_API_KEY || "";
+  // Strip whitespace/newlines and any non-ASCII characters (e.g. smart quotes
+  // accidentally copied alongside the key) that would break the header.
+  const apiKey = rawKey.trim().replace(/[^\x20-\x7E]/g, "");
+
   if (!apiKey) {
     return res.status(500).json({
       error: { message: "Server misconfigured: GROQ_API_KEY is not set." },
+    });
+  }
+  if (apiKey.length !== rawKey.trim().length) {
+    return res.status(500).json({
+      error: {
+        message: `GROQ_API_KEY contains invalid non-ASCII characters (raw length ${rawKey.trim().length}, clean length ${apiKey.length}). Re-copy the key from console.groq.com/keys into a plain text field and re-save it in Vercel.`,
+      },
+    });
+  }
+  if (!apiKey.startsWith("gsk_") || apiKey.length < 40 || apiKey.length > 80) {
+    return res.status(500).json({
+      error: {
+        message: `GROQ_API_KEY looks malformed (length ${apiKey.length}, starts with "${apiKey.slice(0, 6)}..."). Expected a key starting with "gsk_" around 56 characters long. Check what's actually stored in Vercel.`,
+      },
     });
   }
 
