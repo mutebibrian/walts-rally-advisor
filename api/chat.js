@@ -5,8 +5,18 @@
 // so this function translates both directions. This keeps the frontend
 // provider-agnostic — swapping AI providers again later only means editing
 // this file, not App.js.
+//
+// Resilience: Gemini models occasionally return 503 ("currently experiencing
+// high demand") during traffic spikes. Since this app is used live during
+// rally events, a single stuck request is a real problem — so this function
+// retries briefly, then falls back to alternate models (different capacity
+// pools) before giving up.
 
-const GEMINI_MODEL_DEFAULT = "gemini-3.6-flash";
+const MODEL_FALLBACK_CHAIN = ["gemini-3.6-flash", "gemini-2.5-pro", "gemini-3.1-flash-lite"];
+const RETRIES_PER_MODEL = 2; // 1 initial attempt + 1 retry, per model
+const RETRY_DELAY_MS = 900;
+
+const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
 export default async function handler(req, res) {
   if (req.method !== "POST") {
@@ -50,8 +60,6 @@ export default async function handler(req, res) {
     parts: [{ text: m.content }],
   }));
 
-  const geminiModel = (model && model.startsWith("gemini-")) ? model : GEMINI_MODEL_DEFAULT;
-
   const requestBody = {
     contents,
     generationConfig: {
@@ -62,57 +70,90 @@ export default async function handler(req, res) {
     requestBody.system_instruction = { parts: [{ text: systemInstructionText }] };
   }
 
-  try {
-    const geminiResponse = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/${geminiModel}:generateContent`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "x-goog-api-key": apiKey,
-        },
-        body: JSON.stringify(requestBody),
-      }
-    );
+  // Build the model attempt order: an explicit request from the frontend
+  // goes first, followed by the fallback chain (skipping duplicates).
+  const requestedModel = (model && model.startsWith("gemini-")) ? model : null;
+  const modelOrder = requestedModel
+    ? [requestedModel, ...MODEL_FALLBACK_CHAIN.filter((m) => m !== requestedModel)]
+    : MODEL_FALLBACK_CHAIN;
 
-    const data = await geminiResponse.json();
+  let lastError = null;
 
-    if (!geminiResponse.ok) {
-      // Surface Gemini's error message through the same shape the frontend
-      // already expects from the old Groq integration.
-      const errMsg = data?.error?.message || JSON.stringify(data);
-      return res.status(geminiResponse.status).json({ error: { message: errMsg } });
-    }
-
-    const candidate = data?.candidates?.[0];
-    const replyText =
-      candidate?.content?.parts?.map((p) => p.text || "").join("") || "";
-
-    if (!replyText) {
-      // e.g. blocked by safety filters — surface the finish reason clearly.
-      const finishReason = candidate?.finishReason || "unknown";
-      return res.status(200).json({
-        choices: [
+  for (const geminiModel of modelOrder) {
+    for (let attempt = 1; attempt <= RETRIES_PER_MODEL; attempt++) {
+      try {
+        const geminiResponse = await fetch(
+          `https://generativelanguage.googleapis.com/v1beta/models/${geminiModel}:generateContent`,
           {
-            message: {
-              content: `No response text was returned (finish reason: ${finishReason}).`,
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              "x-goog-api-key": apiKey,
             },
-          },
-        ],
-      });
-    }
+            body: JSON.stringify(requestBody),
+          }
+        );
 
-    // Reshape into the OpenAI-style response App.js already expects.
-    return res.status(200).json({
-      choices: [
-        {
-          message: { role: "assistant", content: replyText },
-        },
-      ],
-    });
-  } catch (err) {
-    return res
-      .status(502)
-      .json({ error: { message: `Upstream request to Gemini failed: ${err.message}` } });
+        const data = await geminiResponse.json();
+
+        if (geminiResponse.ok) {
+          const candidate = data?.candidates?.[0];
+          const replyText =
+            candidate?.content?.parts?.map((p) => p.text || "").join("") || "";
+
+          if (!replyText) {
+            // e.g. blocked by safety filters — this isn't a demand/outage
+            // issue, so don't retry or fall back; surface it directly.
+            const finishReason = candidate?.finishReason || "unknown";
+            return res.status(200).json({
+              choices: [
+                {
+                  message: {
+                    content: `No response text was returned (finish reason: ${finishReason}).`,
+                  },
+                },
+              ],
+            });
+          }
+
+          // Success. Reshape into the OpenAI-style response App.js expects.
+          return res.status(200).json({
+            choices: [
+              {
+                message: { role: "assistant", content: replyText },
+              },
+            ],
+            _servedBy: geminiModel, // harmless debugging aid, ignored by the frontend
+          });
+        }
+
+        const errMsg = data?.error?.message || JSON.stringify(data);
+        lastError = { status: geminiResponse.status, message: errMsg };
+
+        const isRetryable = geminiResponse.status === 503 || geminiResponse.status === 429;
+        if (!isRetryable) {
+          // A non-transient error (bad request, auth, model not found, etc.)
+          // won't be fixed by retrying or switching models — fail fast.
+          return res.status(geminiResponse.status).json({ error: { message: errMsg } });
+        }
+
+        if (attempt < RETRIES_PER_MODEL) {
+          await sleep(RETRY_DELAY_MS);
+        }
+        // otherwise, fall through to the next model in modelOrder
+      } catch (err) {
+        lastError = { status: 502, message: `Upstream request to Gemini failed: ${err.message}` };
+        if (attempt < RETRIES_PER_MODEL) {
+          await sleep(RETRY_DELAY_MS);
+        }
+      }
+    }
   }
+
+  // Every model in the chain failed with a retryable error.
+  return res.status(lastError?.status || 503).json({
+    error: {
+      message: `${lastError?.message || "All models are currently unavailable."} (tried: ${modelOrder.join(", ")})`,
+    },
+  });
 }
