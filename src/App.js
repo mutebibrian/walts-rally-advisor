@@ -610,6 +610,7 @@ Keep it concise (3 short paragraphs max), factual, and reference the applicable 
       // Table: a row line immediately followed by a separator line (|---|---|)
       if (isTableRow(trimmed) && i + 1 < lines.length && isTableSeparator(lines[i + 1])) {
         flushList(i);
+        const rowKey = i; // stable copy of the loop index for closures below
         const headerCells = parseTableRow(trimmed);
         const bodyRows = [];
         let j = i + 2;
@@ -618,7 +619,7 @@ Keep it concise (3 short paragraphs max), factual, and reference the applicable 
           j++;
         }
         elements.push(
-          <div key={`tbl-wrap-${i}`} style={{ overflowX: "auto", margin: "8px 0" }}>
+          <div key={`tbl-wrap-${rowKey}`} style={{ overflowX: "auto", margin: "8px 0" }}>
             <table style={{ borderCollapse: "collapse", width: "100%", fontSize: 13 }}>
               <thead>
                 <tr>
@@ -627,7 +628,7 @@ Keep it concise (3 short paragraphs max), factual, and reference the applicable 
                       textAlign: "left", padding: "6px 10px", background: "#f7f2f1",
                       borderBottom: "2px solid #C0392B", whiteSpace: "nowrap",
                     }}>
-                      {renderInlineBold(cell, `th-${i}-${ci}`)}
+                      {renderInlineBold(cell, `th-${rowKey}-${ci}`)}
                     </th>
                   ))}
                 </tr>
@@ -637,7 +638,7 @@ Keep it concise (3 short paragraphs max), factual, and reference the applicable 
                   <tr key={ri} style={{ background: ri % 2 === 1 ? "#fafafa" : "transparent" }}>
                     {row.map((cell, ci) => (
                       <td key={ci} style={{ padding: "6px 10px", borderBottom: "1px solid #eee" }}>
-                        {renderInlineBold(cell, `td-${i}-${ri}-${ci}`)}
+                        {renderInlineBold(cell, `td-${rowKey}-${ri}-${ci}`)}
                       </td>
                     ))}
                   </tr>
