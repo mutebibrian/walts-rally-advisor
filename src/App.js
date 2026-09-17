@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 
-const SYSTEM_PROMPT = `You are the official FMU 2026 NCR rules advisor for Walts Rally Team. Give instant, authoritative, race-day guidance. ALWAYS cite the specific article: 📖 NCR Art.X.X — "rule summary". Structure every answer with: 🚨 IMMEDIATE ACTION | 📋 YOUR RIGHTS | ⚠️ DEADLINES | 💰 COSTS | 📌 WHO TO CONTACT | 💡 TEAM ADVICE | 📖 RULES REFERENCED. When a question calls for comparing structured data (e.g. penalty scales, fee tiers, fine limits by authority), use a markdown table (| Column | Column |\n|---|---|\n| value | value |) instead of prose.
+const SYSTEM_PROMPT = `You are the official FMU 2026 NCR rules advisor for Walts Rally Team. Give instant, authoritative, race-day guidance. ALWAYS cite the specific article: 📖 NCR Art.X.X — "rule summary". Structure every answer with: 🚨 IMMEDIATE ACTION | 📋 YOUR RIGHTS | ⚠️ DEADLINES | 💰 COSTS | 📌 WHO TO CONTACT | 💡 TEAM ADVICE | 📖 RULES REFERENCED
 
 === PENALTIES & FINES ===
 Scale (Art.2.0): Reprimand→Warning→Fine→Time Penalty→Exclusion→Suspension→Disqualification. Beyond fine: enquiry required. Exclusion/Suspension/DQ: party must be summoned.
@@ -380,20 +380,6 @@ export default function WaltsRallyAdvisor() {
   const bottomRef = useRef(null);
   const inputRef = useRef(null);
 
-  // --- Restart Letter Builder state ---
-  const [letterOpen, setLetterOpen] = useState(false);
-  const [letterStep, setLetterStep] = useState("form"); // "form" | "draft" | "sending" | "sent"
-  const [letterFields, setLetterFields] = useState({
-    driverName: "", coDriverName: "", carNumber: "", eventName: "",
-    incidentDetails: "", cocName: "", cocEmail: "",
-  });
-  const [signatureDataUrl, setSignatureDataUrl] = useState(null);
-  const [letterDraft, setLetterDraft] = useState("");
-  const [letterError, setLetterError] = useState("");
-  const [draftingLetter, setDraftingLetter] = useState(false);
-
-  const RESTART_LETTER_TRIGGER = /\brestart\s+letter\b|\bletter\s+to\s+restart\b|\bdraft.*restart.*letter\b|\bwrite.*restart.*request\b/i;
-
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages, loading]);
@@ -401,18 +387,6 @@ export default function WaltsRallyAdvisor() {
   const sendMessage = async (text) => {
     const userText = text || input.trim();
     if (!userText || loading) return;
-
-    // If the message is asking for a restart letter, open the structured
-    // Letter Builder instead of sending this as a normal chat question —
-    // a formal letter needs specific fields (names, car number, CoC
-    // contact) that a free-text reply can't reliably capture.
-    if (RESTART_LETTER_TRIGGER.test(userText)) {
-      setInput("");
-      setLetterOpen(true);
-      setLetterStep("form");
-      return;
-    }
-
     setInput("");
     setShowIntro(false);
     const newMessages = [...messages, { role: "user", content: userText }];
@@ -425,7 +399,7 @@ export default function WaltsRallyAdvisor() {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          model: "gemini-3.6-flash",
+          model: "llama-3.3-70b-versatile",
           max_tokens: 1500,
           messages: [
             { role: "system", content: SYSTEM_PROMPT },
@@ -448,225 +422,11 @@ export default function WaltsRallyAdvisor() {
     setTimeout(() => inputRef.current?.focus(), 100);
   };
 
-  const handleSignatureUpload = (e) => {
-    const file = e.target.files?.[0];
-    if (!file) return;
-    if (!file.type.startsWith("image/")) {
-      setLetterError("Please upload an image file (PNG or JPG) of your signature.");
-      return;
-    }
-    const reader = new FileReader();
-    reader.onload = () => setSignatureDataUrl(reader.result);
-    reader.readAsDataURL(file);
-  };
-
-  const generateLetterDraft = async () => {
-    const f = letterFields;
-    if (!f.driverName || !f.carNumber || !f.incidentDetails || !f.cocEmail) {
-      setLetterError("Please fill in your name, car number, incident details, and the CoC's email before generating the letter.");
-      return;
-    }
-    setLetterError("");
-    setDraftingLetter(true);
-    try {
-      const letterPrompt = `Draft a short, formal, professional restart-request letter body (no salutation like "Dear..." and no sign-off like "Sincerely" — just the body paragraphs) from a rally driver to the Clerk of the Course, citing the specific relevant NCR article(s) on retirement and restart. Use these details:
-Driver: ${f.driverName}${f.coDriverName ? ` / Co-Driver: ${f.coDriverName}` : ""}
-Car Number: ${f.carNumber}
-Event: ${f.eventName || "the rally"}
-Incident: ${f.incidentDetails}
-Keep it concise (3 short paragraphs max), factual, and reference the applicable NCR article number(s) for retirement/restart procedure.`;
-
-      const response = await fetch("/api/chat", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          model: "gemini-3.6-flash",
-          max_tokens: 700,
-          messages: [
-            { role: "system", content: SYSTEM_PROMPT },
-            { role: "user", content: letterPrompt },
-          ],
-        }),
-      });
-      const data = await response.json();
-      if (!response.ok) {
-        setLetterError(data?.error?.message || "Failed to draft the letter.");
-      } else {
-        const draft = data.choices?.[0]?.message?.content || "";
-        setLetterDraft(draft);
-        setLetterStep("draft");
-      }
-    } catch (err) {
-      setLetterError(`Connection error: ${err.message}`);
-    }
-    setDraftingLetter(false);
-  };
-
-  const signAndSendLetter = async () => {
-    setLetterError("");
-    setLetterStep("sending");
-    try {
-      const pdfRes = await fetch("/api/generate-letter-pdf", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          driverName: letterFields.driverName,
-          coDriverName: letterFields.coDriverName,
-          carNumber: letterFields.carNumber,
-          eventName: letterFields.eventName,
-          letterDate: new Date().toLocaleDateString("en-GB", { day: "2-digit", month: "long", year: "numeric" }),
-          cocName: letterFields.cocName,
-          letterBody: letterDraft,
-          signatureDataUrl,
-        }),
-      });
-      const pdfData = await pdfRes.json();
-      if (!pdfRes.ok) {
-        setLetterError(pdfData?.error?.message || "Failed to generate the PDF.");
-        setLetterStep("draft");
-        return;
-      }
-
-      const sendRes = await fetch("/api/send-letter", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          toEmail: letterFields.cocEmail,
-          driverName: letterFields.driverName,
-          carNumber: letterFields.carNumber,
-          eventName: letterFields.eventName,
-          pdfBase64: pdfData.pdfBase64,
-        }),
-      });
-      const sendData = await sendRes.json();
-      if (!sendRes.ok) {
-        setLetterError(sendData?.error?.message || "Failed to send the email.");
-        setLetterStep("draft");
-        return;
-      }
-      setLetterStep("sent");
-    } catch (err) {
-      setLetterError(`Connection error: ${err.message}`);
-      setLetterStep("draft");
-    }
-  };
-
-  const closeLetterBuilder = () => {
-    setLetterOpen(false);
-    setLetterStep("form");
-    setLetterFields({ driverName: "", coDriverName: "", carNumber: "", eventName: "", incidentDetails: "", cocName: "", cocEmail: "" });
-    setSignatureDataUrl(null);
-    setLetterDraft("");
-    setLetterError("");
-  };
-
   const handleKey = (e) => {
     if (e.key === "Enter" && !e.shiftKey) {
       e.preventDefault();
       sendMessage();
     }
-  };
-
-  const renderInlineBold = (text, keyPrefix) => {
-    const parts = text.split(/(\*\*[^*]+\*\*)/g);
-    return parts.map((part, i) =>
-      part.startsWith("**") && part.endsWith("**")
-        ? <strong key={`${keyPrefix}-b${i}`}>{part.slice(2, -2)}</strong>
-        : part
-    );
-  };
-
-  // Minimal markdown renderer: handles **bold**, "* "/"- " bullet lists, and
-  // "---" horizontal rules — the subset the model's structured answers use.
-  // Avoids pulling in a full markdown library for this small formatting need.
-  const isTableRow = (line) => /^\|.*\|$/.test(line.trim());
-  const isTableSeparator = (line) => /^\|?\s*:?-{2,}:?\s*(\|\s*:?-{2,}:?\s*)*\|?$/.test(line.trim());
-  const parseTableRow = (line) =>
-    line.trim().replace(/^\|/, "").replace(/\|$/, "").split("|").map((c) => c.trim());
-
-  const renderMarkdown = (content) => {
-    const lines = content.split("\n");
-    const elements = [];
-    let listBuffer = [];
-
-    const flushList = (key) => {
-      if (listBuffer.length > 0) {
-        elements.push(
-          <ul key={`ul-${key}`} style={{ margin: "4px 0 8px 0", paddingLeft: 20 }}>
-            {listBuffer.map((item, i) => (
-              <li key={i} style={{ marginBottom: 2 }}>{renderInlineBold(item, `li-${key}-${i}`)}</li>
-            ))}
-          </ul>
-        );
-        listBuffer = [];
-      }
-    };
-
-    let i = 0;
-    while (i < lines.length) {
-      const line = lines[i];
-      const trimmed = line.trim();
-
-      // Table: a row line immediately followed by a separator line (|---|---|)
-      if (isTableRow(trimmed) && i + 1 < lines.length && isTableSeparator(lines[i + 1])) {
-        flushList(i);
-        const rowKey = i; // stable copy of the loop index for closures below
-        const headerCells = parseTableRow(trimmed);
-        const bodyRows = [];
-        let j = i + 2;
-        while (j < lines.length && isTableRow(lines[j].trim())) {
-          bodyRows.push(parseTableRow(lines[j]));
-          j++;
-        }
-        elements.push(
-          <div key={`tbl-wrap-${rowKey}`} style={{ overflowX: "auto", margin: "8px 0" }}>
-            <table style={{ borderCollapse: "collapse", width: "100%", fontSize: 13 }}>
-              <thead>
-                <tr>
-                  {headerCells.map((cell, ci) => (
-                    <th key={ci} style={{
-                      textAlign: "left", padding: "6px 10px", background: "#f7f2f1",
-                      borderBottom: "2px solid #C0392B", whiteSpace: "nowrap",
-                    }}>
-                      {renderInlineBold(cell, `th-${rowKey}-${ci}`)}
-                    </th>
-                  ))}
-                </tr>
-              </thead>
-              <tbody>
-                {bodyRows.map((row, ri) => (
-                  <tr key={ri} style={{ background: ri % 2 === 1 ? "#fafafa" : "transparent" }}>
-                    {row.map((cell, ci) => (
-                      <td key={ci} style={{ padding: "6px 10px", borderBottom: "1px solid #eee" }}>
-                        {renderInlineBold(cell, `td-${rowKey}-${ri}-${ci}`)}
-                      </td>
-                    ))}
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        );
-        i = j;
-        continue;
-      }
-
-      if (trimmed === "---") {
-        flushList(i);
-        elements.push(<hr key={`hr-${i}`} style={{ border: "none", borderTop: "1px solid #eee", margin: "10px 0" }} />);
-      } else if (/^[*-]\s+/.test(trimmed)) {
-        listBuffer.push(trimmed.replace(/^[*-]\s+/, ""));
-      } else if (trimmed === "") {
-        flushList(i);
-        elements.push(<div key={`sp-${i}`} style={{ height: 6 }} />);
-      } else {
-        flushList(i);
-        elements.push(<div key={`ln-${i}`}>{renderInlineBold(line, `ln-${i}`)}</div>);
-      }
-      i++;
-    }
-    flushList("end");
-    return elements;
   };
 
   const renderMessage = (msg, idx) => {
@@ -693,9 +453,8 @@ Keep it concise (3 short paragraphs max), factual, and reference the applicable 
           fontSize: 14, lineHeight: 1.7, whiteSpace: "pre-wrap",
           border: isUser ? "none" : "1px solid #eee",
         }}>
-          {isUser ? msg.content : renderMarkdown(msg.content)}
+          {msg.content}
         </div>
-
         {isUser && (
           <div style={{
             width: 34, height: 34, borderRadius: "50%", background: "#e8e8e8",
@@ -727,10 +486,10 @@ Keep it concise (3 short paragraphs max), factual, and reference the applicable 
           }}>🏁</div>
           <div style={{ flex: 1 }}>
             <div style={{ color: "#fff", fontSize: 17, fontWeight: 800, letterSpacing: "0.02em" }}>
-              FMU RULES ADVISOR
+              WALTS RALLY TEAM
             </div>
             <div style={{ color: "rgba(255,255,255,0.75)", fontSize: 11, marginTop: 1 }}>
-              Walts Rally Team · Full NCR Coverage
+              FMU 2026 Rules Advisor · Full NCR Coverage
             </div>
           </div>
           <div style={{
@@ -778,17 +537,6 @@ Keep it concise (3 short paragraphs max), factual, and reference the applicable 
                 ))}
               </div>
             </div>
-            <button
-              onClick={() => { setLetterOpen(true); setLetterStep("form"); }}
-              style={{
-                width: "100%", background: "linear-gradient(135deg, #C0392B, #922B21)",
-                color: "#fff", border: "none", borderRadius: 14, padding: "12px 14px",
-                fontSize: 13, fontWeight: 700, cursor: "pointer",
-                boxShadow: "0 4px 15px rgba(192,57,43,0.3)", marginTop: 4,
-              }}
-            >
-              📝 Generate & Send Restart Letter
-            </button>
           </div>
         )}
 
@@ -886,144 +634,6 @@ Keep it concise (3 short paragraphs max), factual, and reference the applicable 
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
         textarea { scrollbar-width: none; }
       `}</style>
-
-      {letterOpen && (
-        <div style={{
-          position: "fixed", inset: 0, background: "rgba(0,0,0,0.5)",
-          display: "flex", alignItems: "center", justifyContent: "center",
-          zIndex: 1000, padding: 16,
-        }}>
-          <div style={{
-            background: "#fff", borderRadius: 18, width: "100%", maxWidth: 480,
-            maxHeight: "88vh", overflowY: "auto", padding: 24,
-            boxShadow: "0 20px 60px rgba(0,0,0,0.3)",
-          }}>
-            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 16 }}>
-              <div style={{ fontSize: 17, fontWeight: 800, color: "#1a1a1a" }}>📝 Restart Request Letter</div>
-              <button onClick={closeLetterBuilder} style={{
-                background: "none", border: "none", fontSize: 20, cursor: "pointer", color: "#888",
-              }}>×</button>
-            </div>
-
-            {letterError && (
-              <div style={{
-                background: "#fdecea", color: "#922B21", padding: "10px 12px",
-                borderRadius: 10, fontSize: 13, marginBottom: 14,
-              }}>{letterError}</div>
-            )}
-
-            {letterStep === "form" && (
-              <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
-                {[
-                  { key: "driverName", label: "Driver Name *", placeholder: "e.g. Ronald Sebuguzi" },
-                  { key: "coDriverName", label: "Co-Driver Name", placeholder: "Optional" },
-                  { key: "carNumber", label: "Car Number *", placeholder: "e.g. 7" },
-                  { key: "eventName", label: "Rally / Event Name", placeholder: "e.g. FMU Round 3" },
-                  { key: "cocName", label: "Clerk of the Course Name", placeholder: "Optional" },
-                  { key: "cocEmail", label: "CoC Email *", placeholder: "coc@example.com" },
-                ].map((field) => (
-                  <div key={field.key}>
-                    <label style={{ fontSize: 12, fontWeight: 700, color: "#666", display: "block", marginBottom: 3 }}>{field.label}</label>
-                    <input
-                      value={letterFields[field.key]}
-                      onChange={(e) => setLetterFields({ ...letterFields, [field.key]: e.target.value })}
-                      placeholder={field.placeholder}
-                      style={{
-                        width: "100%", padding: "9px 12px", borderRadius: 10,
-                        border: "1.5px solid #e8e8e8", fontSize: 14, outline: "none",
-                      }}
-                    />
-                  </div>
-                ))}
-                <div>
-                  <label style={{ fontSize: 12, fontWeight: 700, color: "#666", display: "block", marginBottom: 3 }}>Incident Details *</label>
-                  <textarea
-                    value={letterFields.incidentDetails}
-                    onChange={(e) => setLetterFields({ ...letterFields, incidentDetails: e.target.value })}
-                    placeholder="What happened, which stage, why you're requesting a restart..."
-                    rows={3}
-                    style={{
-                      width: "100%", padding: "9px 12px", borderRadius: 10,
-                      border: "1.5px solid #e8e8e8", fontSize: 14, outline: "none",
-                      resize: "vertical", fontFamily: "inherit",
-                    }}
-                  />
-                </div>
-                <div>
-                  <label style={{ fontSize: 12, fontWeight: 700, color: "#666", display: "block", marginBottom: 3 }}>Your Signature (image)</label>
-                  <input type="file" accept="image/*" onChange={handleSignatureUpload} style={{ fontSize: 13 }} />
-                  {signatureDataUrl && (
-                    <img src={signatureDataUrl} alt="Signature preview" style={{ height: 50, marginTop: 8, background: "#f5f5f5", borderRadius: 6, padding: 4 }} />
-                  )}
-                </div>
-                <button
-                  onClick={generateLetterDraft}
-                  disabled={draftingLetter}
-                  style={{
-                    marginTop: 6, background: draftingLetter ? "#ccc" : "linear-gradient(135deg, #C0392B, #922B21)",
-                    color: "#fff", border: "none", borderRadius: 12, padding: "12px",
-                    fontSize: 14, fontWeight: 700, cursor: draftingLetter ? "not-allowed" : "pointer",
-                  }}
-                >
-                  {draftingLetter ? "Drafting letter…" : "Generate Letter Draft"}
-                </button>
-              </div>
-            )}
-
-            {letterStep === "draft" && (
-              <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
-                <label style={{ fontSize: 12, fontWeight: 700, color: "#666" }}>Review & edit the letter before sending:</label>
-                <textarea
-                  value={letterDraft}
-                  onChange={(e) => setLetterDraft(e.target.value)}
-                  rows={10}
-                  style={{
-                    width: "100%", padding: "10px 12px", borderRadius: 10,
-                    border: "1.5px solid #e8e8e8", fontSize: 13, outline: "none",
-                    resize: "vertical", fontFamily: "inherit", lineHeight: 1.5,
-                  }}
-                />
-                {signatureDataUrl && (
-                  <div>
-                    <div style={{ fontSize: 12, color: "#888", marginBottom: 4 }}>Signature to be attached:</div>
-                    <img src={signatureDataUrl} alt="Signature" style={{ height: 44, background: "#f5f5f5", borderRadius: 6, padding: 4 }} />
-                  </div>
-                )}
-                <div style={{ fontSize: 12, color: "#888" }}>Will be sent to: <strong>{letterFields.cocEmail}</strong></div>
-                <div style={{ display: "flex", gap: 8 }}>
-                  <button onClick={() => setLetterStep("form")} style={{
-                    flex: 1, background: "#f5f5f5", border: "1.5px solid #e8e8e8", borderRadius: 12,
-                    padding: "12px", fontSize: 14, fontWeight: 700, cursor: "pointer", color: "#444",
-                  }}>Back</button>
-                  <button onClick={signAndSendLetter} style={{
-                    flex: 2, background: "linear-gradient(135deg, #C0392B, #922B21)", color: "#fff",
-                    border: "none", borderRadius: 12, padding: "12px", fontSize: 14, fontWeight: 700, cursor: "pointer",
-                  }}>Sign & Send to CoC</button>
-                </div>
-              </div>
-            )}
-
-            {letterStep === "sending" && (
-              <div style={{ textAlign: "center", padding: "30px 0", color: "#666", fontSize: 14 }}>
-                Generating signed PDF and sending to the CoC…
-              </div>
-            )}
-
-            {letterStep === "sent" && (
-              <div style={{ textAlign: "center", padding: "20px 0" }}>
-                <div style={{ fontSize: 40, marginBottom: 10 }}>✅</div>
-                <div style={{ fontSize: 15, fontWeight: 700, color: "#1a1a1a", marginBottom: 6 }}>Letter sent to the CoC</div>
-                <div style={{ fontSize: 13, color: "#888", marginBottom: 18 }}>Sent to {letterFields.cocEmail}</div>
-                <button onClick={closeLetterBuilder} style={{
-                  background: "linear-gradient(135deg, #C0392B, #922B21)", color: "#fff",
-                  border: "none", borderRadius: 12, padding: "12px 24px", fontSize: 14, fontWeight: 700, cursor: "pointer",
-                }}>Done</button>
-              </div>
-            )}
-          </div>
-        </div>
-      )}
-
     </div>
   );
 }
