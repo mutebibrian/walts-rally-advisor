@@ -58,6 +58,29 @@ export default async function handler(req, res) {
     });
   }
 
+  // pdf-lib's standard fonts only support WinAnsi-encodable characters
+  // (roughly printable ASCII + basic Latin punctuation) — emoji or other
+  // Unicode symbols (e.g. the 📖 used in rulebook citations) throw an
+  // encoding error if drawn directly. Strip anything outside that range.
+  const sanitizeForPdf = (text) =>
+    (text || "")
+      .replace(/[\u{1F000}-\u{1FFFF}]/gu, "") // emoji (astral plane)
+      .replace(/[\u2190-\u2BFF]/g, "") // misc symbols/arrows/dingbats
+      .replace(/[^\x00-\xFF]/g, "") // anything else non-Latin1
+      .replace(/[ \t]+/g, " ")
+      .trim();
+
+  const safeDriverName = sanitizeForPdf(driverName);
+  const safeCoDriverName = sanitizeForPdf(coDriverName);
+  const safeCarNumber = sanitizeForPdf(carNumber);
+  const safeEventName = sanitizeForPdf(eventName);
+  const safeCocName = sanitizeForPdf(cocName);
+  const safeLetterDate = sanitizeForPdf(letterDate);
+  const safeLetterBody = letterBody
+    .split("\n")
+    .map((line) => sanitizeForPdf(line))
+    .join("\n");
+
   try {
     const pdfDoc = await PDFDocument.create();
     const font = await pdfDoc.embedFont(StandardFonts.Helvetica);
@@ -88,18 +111,18 @@ export default async function handler(req, res) {
     drawLine("Formal Restart Request Letter", { size: 11, color: rgb(0.4, 0.4, 0.4) });
     y -= 10;
 
-    drawLine(letterDate || new Date().toLocaleDateString("en-GB"));
+    drawLine(safeLetterDate || new Date().toLocaleDateString("en-GB"));
     y -= 6;
-    drawLine(`To: ${cocName || "The Clerk of the Course"}`, { bold: true });
-    if (eventName) drawLine(eventName);
+    drawLine(`To: ${safeCocName || "The Clerk of the Course"}`, { bold: true });
+    if (safeEventName) drawLine(safeEventName);
     y -= 6;
-    drawLine(`Subject: Restart Request — Car #${carNumber}`, { bold: true });
-    if (coDriverName) drawLine(`Driver: ${driverName}  |  Co-Driver: ${coDriverName}`);
-    else drawLine(`Driver: ${driverName}`);
+    drawLine(`Subject: Restart Request - Car #${safeCarNumber}`, { bold: true });
+    if (safeCoDriverName) drawLine(`Driver: ${safeDriverName}  |  Co-Driver: ${safeCoDriverName}`);
+    else drawLine(`Driver: ${safeDriverName}`);
     y -= 14;
 
     // Body
-    const bodyLines = wrapText(font, letterBody, contentWidth, 11);
+    const bodyLines = wrapText(font, safeLetterBody, contentWidth, 11);
     for (const line of bodyLines) {
       if (line === "") {
         y -= 6;
@@ -133,8 +156,8 @@ export default async function handler(req, res) {
       y -= 30; // leave blank space for a physical signature if none uploaded
     }
 
-    drawLine(driverName, { bold: true });
-    drawLine(`Driver, Car #${carNumber}`);
+    drawLine(safeDriverName, { bold: true });
+    drawLine(`Driver, Car #${safeCarNumber}`);
     drawLine("Walts Rally Team");
 
     const pdfBytes = await pdfDoc.save();
