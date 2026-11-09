@@ -402,27 +402,29 @@ export default function WaltsRallyAdvisor() {
     setMessages(newMessages);
     setLoading(true);
     try {
-      const response = await fetch("https://api.groq.com/openai/v1/chat/completions", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "Authorization": `Bearer ${process.env.GROQ_API_KEY}`,
-        },
-        body: JSON.stringify({
-          model: "llama-3.3-70b-versatile",
-          max_tokens: 1500,
-          messages: [
-            { role: "system", content: SYSTEM_PROMPT },
-            ...newMessages.map((m) => ({ role: m.role, content: m.content })),
-          ],
-        }),
-      });
+      const apiKey = process.env.GEMINI_API_KEY;
+      const geminiMessages = newMessages.map((m) => ({
+        role: m.role === "assistant" ? "model" : "user",
+        parts: [{ text: m.content }],
+      }));
+      const response = await fetch(
+        `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            system_instruction: { parts: [{ text: SYSTEM_PROMPT }] },
+            contents: geminiMessages,
+            generationConfig: { maxOutputTokens: 1500 },
+          }),
+        }
+      );
       const data = await response.json();
       if (!response.ok) {
         const errMsg = data?.error?.message || JSON.stringify(data);
         setMessages([...newMessages, { role: "assistant", content: `⚠️ API Error (${response.status}): ${errMsg}` }]);
       } else {
-        const reply = data.choices?.[0]?.message?.content || "No response received.";
+        const reply = data.candidates?.[0]?.content?.parts?.[0]?.text || "No response received.";
         setMessages([...newMessages, { role: "assistant", content: reply }]);
       }
     } catch (err) {
