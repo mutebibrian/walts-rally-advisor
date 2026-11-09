@@ -15,6 +15,7 @@ const QUICK_SCENARIOS = [
   { icon: "🅿️", label: "Parc Fermé Work", prompt: "We need to do some work on the car while it is in parc fermé. What is allowed?" },
   { icon: "🆘", label: "SOS/OK Board", prompt: "We had an incident on stage. When exactly do we show SOS vs OK and what do we do?" },
   { icon: "⚖️", label: "Appeal a Decision", prompt: "The Stewards made a decision against us. How do we appeal and what does it cost?" },
+  { icon: "📄", label: "Restart Letter", prompt: "restart letter" },
 ];
 
 export default function WaltsRallyAdvisor() {
@@ -22,6 +23,15 @@ export default function WaltsRallyAdvisor() {
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
   const [showIntro, setShowIntro] = useState(true);
+  const [showLetterForm, setShowLetterForm] = useState(false);
+  const [letterForm, setLetterForm] = useState({
+    rallyName: "", rallyDate: "", carNumber: "44", driverName: "Walter Kibande",
+    coDriverName: "", carModel: "", carClass: "", retirementLocation: "",
+    retirementReason: "", timecardSurrendered: "YES", restartSection: "", targetTC: "",
+  });
+  const [signature, setSignature] = useState(null);
+  const sigCanvasRef = useRef(null);
+  const [isDrawing, setIsDrawing] = useState(false);
   const bottomRef = useRef(null);
   const inputRef = useRef(null);
 
@@ -29,9 +39,66 @@ export default function WaltsRallyAdvisor() {
     bottomRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages, loading]);
 
+  // Signature canvas handlers
+  const startDraw = (e) => {
+    setIsDrawing(true);
+    const canvas = sigCanvasRef.current;
+    const rect = canvas.getBoundingClientRect();
+    const ctx = canvas.getContext("2d");
+    const x = (e.touches ? e.touches[0].clientX : e.clientX) - rect.left;
+    const y = (e.touches ? e.touches[0].clientY : e.clientY) - rect.top;
+    ctx.beginPath();
+    ctx.moveTo(x, y);
+  };
+  const draw = (e) => {
+    if (!isDrawing) return;
+    e.preventDefault();
+    const canvas = sigCanvasRef.current;
+    const rect = canvas.getBoundingClientRect();
+    const ctx = canvas.getContext("2d");
+    ctx.lineWidth = 2;
+    ctx.strokeStyle = "#000";
+    ctx.lineCap = "round";
+    const x = (e.touches ? e.touches[0].clientX : e.clientX) - rect.left;
+    const y = (e.touches ? e.touches[0].clientY : e.clientY) - rect.top;
+    ctx.lineTo(x, y);
+    ctx.stroke();
+  };
+  const endDraw = () => {
+    setIsDrawing(false);
+    setSignature(sigCanvasRef.current.toDataURL());
+  };
+  const clearSignature = () => {
+    const canvas = sigCanvasRef.current;
+    canvas.getContext("2d").clearRect(0, 0, canvas.width, canvas.height);
+    setSignature(null);
+  };
+
+  const generateLetter = async () => {
+    const response = await fetch("/api/generate-letter-pdf", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ ...letterForm, signatureDataUrl: signature, submittedTime: new Date().toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit" }) }),
+    });
+    const html = await response.text();
+    const win = window.open("", "_blank");
+    win.document.write(html);
+    win.document.close();
+    setTimeout(() => win.print(), 800);
+    setShowLetterForm(false);
+  };
+
   const sendMessage = async (text) => {
     const userText = text || input.trim();
     if (!userText || loading) return;
+    // Detect restart letter request
+    const lowerText = userText.toLowerCase();
+    if (lowerText.includes("restart letter") || lowerText.includes("create letter") || lowerText.includes("generate letter") || lowerText.includes("restart form")) {
+      setShowLetterForm(true);
+      setShowIntro(false);
+      setInput("");
+      return;
+    }
     setInput("");
     setShowIntro(false);
     const newMessages = [...messages, { role: "user", content: userText }];
@@ -104,11 +171,80 @@ export default function WaltsRallyAdvisor() {
     );
   };
 
+  const Field = ({ label, field, placeholder, type = "text" }) => (
+    <div style={{ marginBottom: 10 }}>
+      <div style={{ fontSize: 11, fontWeight: "bold", color: "#555", marginBottom: 3 }}>{label}</div>
+      <input type={type} placeholder={placeholder} value={letterForm[field]}
+        onChange={e => setLetterForm(p => ({ ...p, [field]: e.target.value }))}
+        style={{ width: "100%", padding: "8px 10px", border: "1px solid #ddd", borderRadius: 6, fontSize: 13, boxSizing: "border-box" }} />
+    </div>
+  );
+
   return (
     <div style={{
       height: "100dvh", background: "#f5f5f5", display: "flex", flexDirection: "column",
       fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif", overflow: "hidden",
     }}>
+
+      {/* RESTART LETTER MODAL */}
+      {showLetterForm && (
+        <div style={{ position: "fixed", inset: 0, background: "rgba(0,0,0,0.6)", zIndex: 1000, display: "flex", alignItems: "center", justifyContent: "center", padding: 16 }}>
+          <div style={{ background: "#fff", borderRadius: 12, width: "100%", maxWidth: 480, maxHeight: "90vh", overflowY: "auto", padding: 20, boxShadow: "0 8px 32px rgba(0,0,0,0.3)" }}>
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 16 }}>
+              <div>
+                <div style={{ fontSize: 16, fontWeight: "bold", color: "#C0392B" }}>🏁 RESTART NOTIFICATION LETTER</div>
+                <div style={{ fontSize: 11, color: "#777" }}>NCR Art. 54.1.1 — Fill in details below</div>
+              </div>
+              <button onClick={() => setShowLetterForm(false)} style={{ background: "none", border: "none", fontSize: 20, cursor: "pointer", color: "#999" }}>✕</button>
+            </div>
+
+            <div style={{ fontSize: 12, fontWeight: "bold", color: "#C0392B", marginBottom: 8, borderBottom: "1px solid #eee", paddingBottom: 4 }}>RALLY INFO</div>
+            <Field label="Rally Name & Year" field="rallyName" placeholder="e.g. Pearl of Africa Rally 2026" />
+            <Field label="Date" field="rallyDate" placeholder="e.g. 09/11/2026" type="date" />
+
+            <div style={{ fontSize: 12, fontWeight: "bold", color: "#C0392B", margin: "12px 0 8px", borderBottom: "1px solid #eee", paddingBottom: 4 }}>COMPETITOR DETAILS</div>
+            <Field label="Car Number" field="carNumber" placeholder="e.g. 44" />
+            <Field label="Driver Name" field="driverName" placeholder="e.g. Walter Kibande" />
+            <Field label="Co-Driver Name" field="coDriverName" placeholder="e.g. John Doe" />
+            <Field label="Car Make / Model" field="carModel" placeholder="e.g. Subaru Impreza WRX" />
+            <Field label="Car Class" field="carClass" placeholder="e.g. National 4WD" />
+
+            <div style={{ fontSize: 12, fontWeight: "bold", color: "#C0392B", margin: "12px 0 8px", borderBottom: "1px solid #eee", paddingBottom: 4 }}>RETIREMENT DETAILS</div>
+            <Field label="Retirement Location / SS / TC" field="retirementLocation" placeholder="e.g. SS3 / After TC4" />
+            <Field label="Reason for Retirement" field="retirementReason" placeholder="e.g. Mechanical failure — suspension" />
+            <div style={{ marginBottom: 10 }}>
+              <div style={{ fontSize: 11, fontWeight: "bold", color: "#555", marginBottom: 3 }}>Time Card Surrendered?</div>
+              <select value={letterForm.timecardSurrendered}
+                onChange={e => setLetterForm(p => ({ ...p, timecardSurrendered: e.target.value }))}
+                style={{ width: "100%", padding: "8px 10px", border: "1px solid #ddd", borderRadius: 6, fontSize: 13 }}>
+                <option>YES</option><option>NO</option>
+              </select>
+            </div>
+            <Field label="Section / Leg to Restart From" field="restartSection" placeholder="e.g. Leg 2 / Section 3" />
+            <Field label="Target Time Control" field="targetTC" placeholder="e.g. TC4B — Overnight Regroup Exit" />
+
+            <div style={{ fontSize: 12, fontWeight: "bold", color: "#C0392B", margin: "12px 0 8px", borderBottom: "1px solid #eee", paddingBottom: 4 }}>DRIVER SIGNATURE</div>
+            <div style={{ fontSize: 11, color: "#777", marginBottom: 6 }}>Draw your signature in the box below:</div>
+            <canvas ref={sigCanvasRef} width={420} height={100}
+              onMouseDown={startDraw} onMouseMove={draw} onMouseUp={endDraw} onMouseLeave={endDraw}
+              onTouchStart={startDraw} onTouchMove={draw} onTouchEnd={endDraw}
+              style={{ border: "2px solid #C0392B", borderRadius: 8, width: "100%", height: 100, touchAction: "none", cursor: "crosshair", background: "#fafafa" }} />
+            <button onClick={clearSignature} style={{ marginTop: 4, fontSize: 11, color: "#C0392B", background: "none", border: "none", cursor: "pointer", padding: 0 }}>✕ Clear signature</button>
+
+            <div style={{ display: "flex", gap: 10, marginTop: 20 }}>
+              <button onClick={() => setShowLetterForm(false)}
+                style={{ flex: 1, padding: "12px", border: "1px solid #ddd", borderRadius: 8, background: "#f5f5f5", cursor: "pointer", fontSize: 13 }}>
+                Cancel
+              </button>
+              <button onClick={generateLetter}
+                style={{ flex: 2, padding: "12px", border: "none", borderRadius: 8, background: "#C0392B", color: "#fff", cursor: "pointer", fontSize: 13, fontWeight: "bold" }}>
+                🖨️ Generate & Print PDF Letter
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* Header */}
       <div style={{
         background: "linear-gradient(135deg, #C0392B 0%, #7B241C 100%)",
