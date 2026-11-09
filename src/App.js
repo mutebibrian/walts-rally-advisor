@@ -1,4 +1,13 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useCallback } from "react";
+
+const Field = ({ label, field, placeholder, type = "text", value, onChange }) => (
+  <div style={{ marginBottom: 10 }}>
+    <div style={{ fontSize: 11, fontWeight: "bold", color: "#555", marginBottom: 3 }}>{label}</div>
+    <input type={type} placeholder={placeholder} value={value}
+      onChange={e => onChange(field, e.target.value)}
+      style={{ width: "100%", padding: "8px 10px", border: "1px solid #ddd", borderRadius: 6, fontSize: 13, boxSizing: "border-box" }} />
+  </div>
+);
 
 
 
@@ -171,14 +180,9 @@ export default function WaltsRallyAdvisor() {
     );
   };
 
-  const Field = ({ label, field, placeholder, type = "text" }) => (
-    <div style={{ marginBottom: 10 }}>
-      <div style={{ fontSize: 11, fontWeight: "bold", color: "#555", marginBottom: 3 }}>{label}</div>
-      <input type={type} placeholder={placeholder} value={letterForm[field]}
-        onChange={e => setLetterForm(p => ({ ...p, [field]: e.target.value }))}
-        style={{ width: "100%", padding: "8px 10px", border: "1px solid #ddd", borderRadius: 6, fontSize: 13, boxSizing: "border-box" }} />
-    </div>
-  );
+  const handleFieldChange = useCallback((field, value) => {
+    setLetterForm(p => ({ ...p, [field]: value }));
+  }, []);
 
   return (
     <div style={{
@@ -199,19 +203,19 @@ export default function WaltsRallyAdvisor() {
             </div>
 
             <div style={{ fontSize: 12, fontWeight: "bold", color: "#C0392B", marginBottom: 8, borderBottom: "1px solid #eee", paddingBottom: 4 }}>RALLY INFO</div>
-            <Field label="Rally Name & Year" field="rallyName" placeholder="e.g. Pearl of Africa Rally 2026" />
+            <Field label="Rally Name & Year" field="rallyName" placeholder="e.g. Pearl of Africa Rally 2026" value={letterForm.rallyName} onChange={handleFieldChange} />
             <Field label="Date" field="rallyDate" placeholder="e.g. 09/11/2026" type="date" />
 
             <div style={{ fontSize: 12, fontWeight: "bold", color: "#C0392B", margin: "12px 0 8px", borderBottom: "1px solid #eee", paddingBottom: 4 }}>COMPETITOR DETAILS</div>
-            <Field label="Car Number" field="carNumber" placeholder="e.g. 44" />
-            <Field label="Driver Name" field="driverName" placeholder="e.g. Walter Kibande" />
-            <Field label="Co-Driver Name" field="coDriverName" placeholder="e.g. John Doe" />
+            <Field label="Car Number" field="carNumber" placeholder="e.g. 44" value={letterForm.carNumber} onChange={handleFieldChange} />
+            <Field label="Driver Name" field="driverName" placeholder="e.g. Walter Kibande" value={letterForm.driverName} onChange={handleFieldChange} />
+            <Field label="Co-Driver Name" field="coDriverName" placeholder="e.g. John Doe" value={letterForm.coDriverName} onChange={handleFieldChange} />
             <Field label="Car Make / Model" field="carModel" placeholder="e.g. Subaru Impreza WRX" />
-            <Field label="Car Class" field="carClass" placeholder="e.g. National 4WD" />
+            <Field label="Car Class" field="carClass" placeholder="e.g. National 4WD" value={letterForm.carClass} onChange={handleFieldChange} />
 
             <div style={{ fontSize: 12, fontWeight: "bold", color: "#C0392B", margin: "12px 0 8px", borderBottom: "1px solid #eee", paddingBottom: 4 }}>RETIREMENT DETAILS</div>
             <Field label="Retirement Location / SS / TC" field="retirementLocation" placeholder="e.g. SS3 / After TC4" />
-            <Field label="Reason for Retirement" field="retirementReason" placeholder="e.g. Mechanical failure — suspension" />
+            <Field label="Reason for Retirement" field="retirementReason" placeholder="e.g. Mechanical failure — suspension" value={letterForm.retirementReason} onChange={handleFieldChange} />
             <div style={{ marginBottom: 10 }}>
               <div style={{ fontSize: 11, fontWeight: "bold", color: "#555", marginBottom: 3 }}>Time Card Surrendered?</div>
               <select value={letterForm.timecardSurrendered}
@@ -221,7 +225,7 @@ export default function WaltsRallyAdvisor() {
               </select>
             </div>
             <Field label="Section / Leg to Restart From" field="restartSection" placeholder="e.g. Leg 2 / Section 3" />
-            <Field label="Target Time Control" field="targetTC" placeholder="e.g. TC4B — Overnight Regroup Exit" />
+            <Field label="Target Time Control" field="targetTC" placeholder="e.g. TC4B — Overnight Regroup Exit" value={letterForm.targetTC} onChange={handleFieldChange} />
 
             <div style={{ fontSize: 12, fontWeight: "bold", color: "#C0392B", margin: "12px 0 8px", borderBottom: "1px solid #eee", paddingBottom: 4 }}>DRIVER SIGNATURE</div>
             <div style={{ fontSize: 11, color: "#777", marginBottom: 6 }}>Draw your signature in the box below:</div>
