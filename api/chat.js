@@ -17,7 +17,7 @@ export default async function handler(req, res) {
       },
       body: JSON.stringify({
         model: "openai/gpt-oss-20b",
-        max_tokens: 1500,
+        max_tokens: 600,
         messages: [
           { role: "system", content: systemPrompt },
           ...messages.map((m) => ({ role: m.role, content: m.content })),
