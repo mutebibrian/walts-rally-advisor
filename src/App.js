@@ -400,7 +400,6 @@ export default function WaltsRallyAdvisor() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           messages: newMessages,
-          systemPrompt: SYSTEM_PROMPT,
         }),
       });
       const data = await response.json();
