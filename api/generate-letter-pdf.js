@@ -55,12 +55,10 @@ export default async function handler(req, res) {
 
 <div class="header">
   <div class="logo-row">
-    <span class="checkered">🏁</span>
+    <img src="https://walts-rally-advisor.vercel.app/logo.png" alt="Rally Hub" style="height:60px; width:auto;"/>
     <div>
-      <h1>RALLY HUB</h1>
-      <h2>FMU 2026 National Competition Rules — Official Document</h2>
+      <h2 style="margin:4px 0 0; font-weight:normal; color:#333;">FMU 2026 National Competition Rules — Official Document</h2>
     </div>
-    <span class="checkered">🏁</span>
   </div>
 </div>
 
